@@ -6,6 +6,7 @@ import { HelmetProvider } from "react-helmet-async";
 import Dashboard from "./Components/Dashboard.jsx";
 import ProtectedRoute from "./Components/ProtectedRoute.jsx"
 import LinkQr from "./Components/LinkQr.jsx";
+import AllLinks from "./Components/LinkQr.jsx";
  
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
           <Route element={<ProtectedRoute/>}>
           <Route path="/enqodeLink" element={<LinkQr/>}/>
           <Route path="/dashboard" element={<Dashboard/>}/>
+          <Route path="/allLinks" element={<AllLinks/>}/>
           </Route>
         </Routes>
       </BrowserRouter>

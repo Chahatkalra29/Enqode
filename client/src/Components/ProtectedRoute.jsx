@@ -1,6 +1,7 @@
 import React from "react"
 import {jwtDecode} from "jwt-decode"
 import { Navigate, Outlet } from "react-router-dom";
+import Navbar from "./Navbar";
 
 const ProtectedRoute=()=>{
     const utoken = localStorage.getItem('utoken')
@@ -14,7 +15,9 @@ const ProtectedRoute=()=>{
             localStorage.removeItem('utoken')
             return <Navigate to="/login"/>;
         }else{
-            return<Outlet/>;
+            return <>
+                <Navbar/>
+            <Outlet/>;</>
         }
     } catch (error) {
         localStorage.removeItem('utoken')

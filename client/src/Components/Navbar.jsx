@@ -1,14 +1,29 @@
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import axios from "axios";
 
 const Navbar = () => {
     const navigate = useNavigate()
-    const handleLogOut=()=>{
+    const handleLogOut= async()=>{
+      const token= localStorage.getItem('utoken')
+      try {
+        const response = await axios.get("http://localhost:5000/userapi/logoutuser",{
+          headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        })
+        console.log(response)
         localStorage.removeItem('utoken')
         navigate('/login')
+        
+      } catch (error) {
+        console.log(error)
+      }
+        
     }
   return (
-    <nav>
+    <nav className='bg-[#0b0f1a] text-white shadow-md py-4 px-6'>
         <div>
             {/*logo */}
             <Link to={"/dashboard"}>Enqode</Link>

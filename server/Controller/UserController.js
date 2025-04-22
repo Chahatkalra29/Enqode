@@ -5,6 +5,7 @@ exports.testuser = async (req, res) => {
 };
 const LinkQr = require("../Models/LinkQr");
 const linkQrModel = require("../Models/LinkQr");
+const TokenBlacklist = require("../Models/TokenBlacklist");
 const userModel = require("../Models/User");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -85,3 +86,33 @@ exports.loginuser = async (req, res) => {
     res.json({ error: error.message });
   }
 };
+exports.getQrLinks = async (req, res) => {
+  try {
+    console.log("User ID from token:", req.user.id);
+    const qrLinks = await linkQrModel.find({user: req.user.id});
+    console.log("Found links:", qrLinks);
+    
+    if (!qrLinks || qrLinks.length === 0) {
+      return res.json([]);  // Return empty array instead of error if no links found
+    }
+    
+    res.json(qrLinks);
+  } catch (error) {
+    console.error("Error in getQrLinks:", error);
+    res.status(500).json({"error": error.message});
+  }
+};
+
+
+exports.logoutuser = async (req,res) => {
+  const token = req.headers.authorization?.split(" ")[1]
+    if(!token){
+     return res.json({"msg":"No Token Found"})
+    }try {
+      const tokenData = new TokenBlacklist({token})
+      const saveBlacklistToken = await tokenData.save()
+      res.json(saveBlacklistToken)
+    } catch (error) {
+      res.json({"error": error})
+    }
+}
