@@ -1,127 +1,158 @@
-import React, { useEffect, useState } from "react";
+import React, { useRef, useState } from "react";
+import { QRCodeCanvas } from "qrcode.react";
+import { Helmet } from "react-helmet-async";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-const AllLinks = () => {
-  const [qrLinks, setQrLinks] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  
-  const fetchQrLinks = async () => {
+const LinkQr = () => {
+  const [qrLinks, setQrLinks] = useState("");
+  const [qrColor, setQrColor] = useState("#000000");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const qRef = useRef();
+  const navigate = useNavigate();
+
+  const downloadQr = () => {
+    const canvas = qRef.current.querySelector("canvas");
+    if (!canvas) return;
+
+    const url = canvas.toDataURL("image/png");
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "qrcode.png";
+    a.click();
+  };
+
+  const saveQrCode = async () => {
+    if (!qrLinks) {
+      setError("Please enter a URL");
+      return;
+    }
+
     try {
+      setLoading(true);
+      setError("");
+
       const utoken = localStorage.getItem("utoken");
-      console.log("Token used for request:", utoken ? "Token exists" : "No token found");
-      
       if (!utoken) {
         setError("No authentication token found. Please log in again.");
         setLoading(false);
+        navigate("/login");
         return;
       }
-      
-      const response = await axios.get("http://localhost:5000/userapi/getqrlinks", {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${utoken}`,
+
+      const response = await axios.post(
+        "http://localhost:5000/userapi/addlinkqr",
+        {
+          qrLink: qrLinks,
+          qrColor: qrColor,
         },
-      });
-      
-      console.log("API Response data:", response.data);
-      
-      if (response.data.length === 0) {
-        console.log("No QR links found for this user");
-      }
-      
-      setQrLinks(response.data);
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${utoken}`,
+          },
+        }
+      );
+
+      console.log("QR code saved:", response.data);
       setLoading(false);
-    } catch (error) {
-      console.error("Error fetching QR links:", error.response?.data || error.message);
-      setError("Failed to load QR links: " + (error.response?.data?.error || error.message));
+
+      setTimeout(() => {
+        navigate("/allLinks");
+      }, 2000);
+    } catch (err) {
+      console.error("Error saving QR code:", err);
+      setError(
+        "Failed to save QR code: " + (err.response?.data?.error || err.message)
+      );
       setLoading(false);
     }
   };
 
-  useEffect(() => {
-    fetchQrLinks();
-  }, []);
-
-  if (loading) {
-    return <div className="flex justify-center items-center h-40">
-      <p className="text-lg font-medium">Loading your links...</p>
-    </div>;
-  }
-
-  if (error) {
-    return <div className="p-4 bg-red-50 border border-red-200 rounded-md">
-      <p className="text-red-600">{error}</p>
-      <button 
-        className="mt-2 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
-        onClick={() => window.location.href = '/login'}
-      >
-        Return to Login
-      </button>
-    </div>;
-  }
-
-  if (qrLinks.length === 0) {
-    return <div className="p-4 bg-yellow-50 border border-yellow-200 rounded-md">
-      <p className="text-yellow-700">No QR links found. Create some QR codes first!</p>
-      <button 
-        className="mt-2 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
-        onClick={() => window.location.href = '/enqodeLink'}
-      >
-        Create New QR Code
-      </button>
-    </div>;
-  }
-
   return (
-    <div className="p-4">
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-xl font-bold">Your QR Links</h2>
-        <button 
-          className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
-          onClick={() => window.location.href = '/enqodeLink'}
-        >
-          Create New QR
-        </button>
+    <div className="flex flex-col items-center min-h-screen p-6">
+      <Helmet>
+        <title>Enqode-Links</title>
+      </Helmet>
+
+      <h1 className="text-3xl font-bold mb-6">Create QR Code</h1>
+
+      <div className="w-full max-w-md bg-white rounded-lg shadow-md p-6">
+        <div className="mb-4">
+          <label htmlFor="url" className="block text-gray-700 font-medium mb-2">
+            Enter URL
+          </label>
+          <input
+            id="url"
+            type="text"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="https://example.com"
+            value={qrLinks}
+            onChange={(e) => setQrLinks(e.target.value)}
+          />
+        </div>
+
+        <div className="mb-6">
+          <label
+            htmlFor="color"
+            className="block text-gray-700 font-medium mb-2"
+          >
+            QR Code Color
+          </label>
+          <div className="flex items-center">
+            <input
+              id="color"
+              type="color"
+              className="w-12 h-8 border border-gray-300 rounded"
+              value={qrColor}
+              onChange={(e) => setQrColor(e.target.value)}
+            />
+            <span className="ml-2 text-gray-600">{qrColor}</span>
+          </div>
+        </div>
+
+        {error && (
+          <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-md">
+            {error}
+          </div>
+        )}
+
+        <div className="flex flex-col items-center" ref={qRef}>
+          {qrLinks ? (
+            <QRCodeCanvas
+              value={qrLinks}
+              size={200}
+              fgColor={qrColor}
+              level="H"
+              className="mb-4 border border-gray-200 rounded"
+            />
+          ) : (
+            <div className="w-[200px] h-[200px] border border-gray-200 rounded flex items-center justify-center mb-4">
+              <p className="text-gray-400">Enter a URL to generate QR code</p>
+            </div>
+          )}
+
+          <div className="flex space-x-4 mt-4">
+            <button
+              onClick={downloadQr}
+              disabled={!qrLinks}
+              className="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 disabled:opacity-50"
+            >
+              Download
+            </button>
+            <button
+              onClick={saveQrCode}
+              disabled={loading || !qrLinks}
+              className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 disabled:opacity-50"
+            >
+              Save
+            </button>
+          </div>
+        </div>
       </div>
-      <table className="w-full border-collapse border border-gray-300">
-        <thead className="bg-gray-100">
-          <tr>
-            <th className="border border-gray-300 p-2">QR Links</th>
-            <th className="border border-gray-300 p-2">QR Color</th>
-            <th className="border border-gray-300 p-2">QR Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          {qrLinks.map((qr, index) => (
-            <tr key={index} className={index % 2 === 0 ? "bg-gray-50" : ""}>
-              <td className="border border-gray-300 p-2">
-                <a href={qr.qrLink} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
-                  {qr.qrLink}
-                </a>
-              </td>
-              <td className="border border-gray-300 p-2">
-                <div className="flex items-center">
-                  <div 
-                    className="w-4 h-4 rounded-full mr-2" 
-                    style={{ backgroundColor: qr.qrColor }}
-                  ></div>
-                  {qr.qrColor}
-                </div>
-              </td>
-              <td className="border border-gray-300 p-2">
-                <span className={`px-2 py-1 rounded-full text-xs ${
-                  qr.status === 'enable' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
-                }`}>
-                  {qr.status}
-                </span>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
     </div>
   );
 };
 
-export default AllLinks;
+export default LinkQr;

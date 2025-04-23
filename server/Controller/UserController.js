@@ -12,16 +12,25 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
 exports.addLinkQr = async (req, res) => {
-  const qrLink = req.body.qrLink;
-  const qrColor = req.body.qrColor;
+  const { qrLink, qrColor } = req.body;
+  const user = req.user.id; 
 
-  const user = req.user._id;
+  if (!qrLink || !qrColor) {
+    return res.status(400).json({ error: "QR link and color are required" });
+  }
+
   try {
-    const newLinkQr = new linkQrModel({ qrLink, qrColor, user });
-    const saveQr = await new LinkQr.save();
-    res.json(saveQr);
+    const newLinkQr = new LinkQr({ 
+      qrLink, 
+      qrColor, 
+      user 
+    });
+    
+    const saveQr = await newLinkQr.save();
+    res.status(201).json(saveQr);
   } catch (error) {
-    res.json({ "error:": error });
+    console.error("Error saving QR link:", error);
+    res.status(500).json({ error: error.message });
   }
 };
 // exports.debug = async(req,res)=>{
@@ -78,7 +87,7 @@ exports.loginuser = async (req, res) => {
         user_email: userLogin.user_email,
       },
       process.env.JWT_USER_SECRET,
-      { expiresIn: "10m" }
+      { expiresIn: "1d" }
     );
 
     res.json({ loginsts: "0", token: token });

@@ -6,7 +6,7 @@ import { HelmetProvider } from "react-helmet-async";
 import Dashboard from "./Components/Dashboard.jsx";
 import ProtectedRoute from "./Components/ProtectedRoute.jsx"
 import LinkQr from "./Components/LinkQr.jsx";
-import AllLinks from "./Components/LinkQr.jsx";
+import AllLinks from "./Components/AllLinks.jsx";
  
 const App = () => {
   return (

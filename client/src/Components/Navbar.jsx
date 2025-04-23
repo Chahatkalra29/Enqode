@@ -4,14 +4,15 @@ import axios from "axios";
 
 const Navbar = () => {
     const navigate = useNavigate()
-    const handleLogOut= async()=>{
-      const token= localStorage.getItem('utoken')
+    
+    const handleLogOut = async () => {
+      const token = localStorage.getItem('utoken')
       try {
-        const response = await axios.get("http://localhost:5000/userapi/logoutuser",{
+        const response = await axios.get("http://localhost:5000/userapi/logoutuser", {
           headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
         })
         console.log(response)
         localStorage.removeItem('utoken')
@@ -20,23 +21,33 @@ const Navbar = () => {
       } catch (error) {
         console.log(error)
       }
-        
     }
-  return (
-    <nav className='bg-[#0b0f1a] text-white shadow-md py-4 px-6'>
-        <div>
+    
+    return (
+      <nav className='bg-[#0b0f1a] text-white shadow-md py-4 px-6'>
+        <div className="container mx-auto">
+          <div className="flex justify-between items-center">
             {/*logo */}
-            <Link to={"/dashboard"}>Enqode</Link>
-             {/*desktop menu */}
-             <ul>
-                <li><Link to={"/dashboard"}>Dashboard</Link></li>
-                <li><Link to={"/enqodeLink"}>New QR</Link></li>
-                <li><Link to={"/allLinks"}>Saved</Link></li>
-                <li><button onClick={handleLogOut}>Logout</button> </li>
-             </ul>
+            <Link to="/dashboard" className="text-xl font-bold">Enqode</Link>
+            
+            {/*desktop menu */}
+            <ul className="flex space-x-6">
+              <li><Link to="/dashboard" className="hover:text-blue-300">Dashboard</Link></li>
+              <li><Link to="/enqodeLink" className="hover:text-blue-300">New QR</Link></li>
+              <li><Link to="/allLinks" className="hover:text-blue-300">Saved</Link></li>
+              <li>
+                <button 
+                  onClick={handleLogOut}
+                  className="bg-red-500 hover:bg-red-600 px-4 py-2 rounded"
+                >
+                  Logout
+                </button>
+              </li>
+            </ul>
+          </div>
         </div>
-    </nav>
-  )
+      </nav>
+    )
 }
 
 export default Navbar
