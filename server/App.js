@@ -3,6 +3,7 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 require('dotenv').config()
 const mongoose = require('mongoose')
+require('events').EventEmitter.defaultMaxListeners = 20;
 
 // const userModel = require('./Models/User.jsx')
 // http://localhost:5000/userapi/testuser

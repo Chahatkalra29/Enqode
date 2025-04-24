@@ -3,6 +3,7 @@ exports.testuser = async (req, res) => {
     msg: "Just a test user",
   });
 };
+const ResetPassModel = require('../Models/ResetPass')
 const LinkQr = require("../Models/LinkQr");
 const linkQrModel = require("../Models/LinkQr");
 const TokenBlacklist = require("../Models/TokenBlacklist");
@@ -10,6 +11,15 @@ const userModel = require("../Models/User");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
+const crypto = require('crypto')
+const nodemailer = require('nodemailer')
+const transporter = nodemailer.createTransport({
+  service:"gmail",
+  auth:{
+    user:process.env.EMAIL_USER, 
+    pass: process.env.EMAIL_PASS
+  }
+})
 
 exports.addLinkQr = async (req, res) => {
   const { qrLink, qrColor } = req.body;
@@ -116,7 +126,7 @@ exports.getQrLinks = async (req, res) => {
 exports.logoutuser = async (req,res) => {
   const token = req.headers.authorization?.split(" ")[1]
     if(!token){
-     return res.json({"msg":"No Token Found"})
+     return res.json({msg:"No Token Found"})
     }try {
       const tokenData = new TokenBlacklist({token})
       const saveBlacklistToken = await tokenData.save()
@@ -125,3 +135,51 @@ exports.logoutuser = async (req,res) => {
       res.json({"error": error})
     }
 }
+
+exports.forgetpass = async (req,res) => {
+  const user_email = req.body.email 
+  try {
+    const user = await userModel.findOne({
+      user_email
+    });if (!user) {
+      return res.json({msg:"User not FOUND"})
+    }
+    const reset_token = crypto.randomBytes(32).toString("hex")
+    
+    await ResetPassModel.deleteMany({
+      userId: user._id 
+    })
+    const newReset = newResetPassModel({
+      userId:user._id,
+      reset_token:token
+    }); await newReset.save()
+    
+    await transporter.sendMail({
+      to: user.user_email,
+      subject:"Enqode Password Reset",
+      html:
+      `<h1>Click the link below to Resetpass</h1>
+      <a href="${process.env.CLIENT_URL}/reset-pass/${token}">${process.env.CLIENT_URL}/reset-pass/${token}</a>`
+    }) 
+    res.json({msg:"Reset Link sent to Email"})
+  } catch (error) {
+    res.json({"error":error})
+  }
+}
+
+exports.resetpass = async(req,res)=>{
+  const {token} = req.params
+ const user_pass = req.body.user_password
+try {
+  const resetToken = await ResetPassModel.findOne({"reset_token":token})
+  if(!resetToken){
+    return res.json({reset_sts:"1",msg:"Invalid"})
+  }
+  const resetPass= await userModel.findOneAndUpdate({
+    _id: resetToken.userId
+  },{
+    $set:{user_pass:user_pass}
+  },{new:true}); res.json({reset_sts:"0",msg:"Your Password is updated"})
+} catch (error) {
+  res.json({"error":error})
+}}
