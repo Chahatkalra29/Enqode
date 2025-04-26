@@ -1,7 +1,7 @@
 const express = require('express')
 
 const router = express.Router()
-const{testuser, regUser, debug, loginuser, addLinkQr, logoutuser,getQrLinks, forgetpass} = require('../Controller/UserController')
+const{testuser, regUser, debug, loginuser, addLinkQr, logoutuser,getQrLinks, forgetpass, resetpass} = require('../Controller/UserController')
 const uAuth = require('../Middleware/userAuthentication')
 
 router.get('/testuser',uAuth, testuser)
@@ -14,7 +14,7 @@ router.post('/addlinkqr',uAuth, addLinkQr)
 
 router.post('/forgetpass',forgetpass)
 
-router.post('/reset-pass/:token', forgetpass)
+router.post('/reset-pass/:token', resetpass)
 
 router.post('/reguser', regUser)
 // router.post('/debug',debug)

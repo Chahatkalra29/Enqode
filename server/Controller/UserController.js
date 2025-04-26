@@ -3,7 +3,7 @@ exports.testuser = async (req, res) => {
     msg: "Just a test user",
   });
 };
-const ResetPassModel = require('../Models/ResetPass')
+const ResetPassModel = require("../Models/ResetPass");
 const LinkQr = require("../Models/LinkQr");
 const linkQrModel = require("../Models/LinkQr");
 const TokenBlacklist = require("../Models/TokenBlacklist");
@@ -11,31 +11,31 @@ const userModel = require("../Models/User");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
-const crypto = require('crypto')
-const nodemailer = require('nodemailer')
+const crypto = require("crypto");
+const nodemailer = require("nodemailer");
 const transporter = nodemailer.createTransport({
-  service:"gmail",
-  auth:{
-    user:process.env.EMAIL_USER, 
-    pass: process.env.EMAIL_PASS
-  }
-})
+  service: "gmail",
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
+  },
+});
 
 exports.addLinkQr = async (req, res) => {
   const { qrLink, qrColor } = req.body;
-  const user = req.user.id; 
+  const user = req.user.id;
 
   if (!qrLink || !qrColor) {
     return res.status(400).json({ error: "QR link and color are required" });
   }
 
   try {
-    const newLinkQr = new LinkQr({ 
-      qrLink, 
-      qrColor, 
-      user 
+    const newLinkQr = new LinkQr({
+      qrLink,
+      qrColor,
+      user,
     });
-    
+
     const saveQr = await newLinkQr.save();
     res.status(201).json(saveQr);
   } catch (error) {
@@ -108,78 +108,89 @@ exports.loginuser = async (req, res) => {
 exports.getQrLinks = async (req, res) => {
   try {
     console.log("User ID from token:", req.user.id);
-    const qrLinks = await linkQrModel.find({user: req.user.id});
+    const qrLinks = await linkQrModel.find({ user: req.user.id });
     console.log("Found links:", qrLinks);
-    
+
     if (!qrLinks || qrLinks.length === 0) {
-      return res.json([]);  // Return empty array instead of error if no links found
+      return res.json([]); // Return empty array instead of error if no links found
     }
-    
+
     res.json(qrLinks);
   } catch (error) {
     console.error("Error in getQrLinks:", error);
-    res.status(500).json({"error": error.message});
+    res.status(500).json({ error: error.message });
   }
 };
 
+exports.logoutuser = async (req, res) => {
+  const token = req.headers.authorization?.split(" ")[1];
+  if (!token) {
+    return res.json({ msg: "No Token Found" });
+  }
+  try {
+    const tokenData = new TokenBlacklist({ token });
+    const saveBlacklistToken = await tokenData.save();
+    res.json(saveBlacklistToken);
+  } catch (error) {
+    res.json({ error: error });
+  }
+};
 
-exports.logoutuser = async (req,res) => {
-  const token = req.headers.authorization?.split(" ")[1]
-    if(!token){
-     return res.json({msg:"No Token Found"})
-    }try {
-      const tokenData = new TokenBlacklist({token})
-      const saveBlacklistToken = await tokenData.save()
-      res.json(saveBlacklistToken)
-    } catch (error) {
-      res.json({"error": error})
-    }
-}
-
-exports.forgetpass = async (req,res) => {
-  const user_email = req.body.email 
+exports.forgetpass = async (req, res) => {
+  const user_email = req.body.email;
   try {
     const user = await userModel.findOne({
-      user_email
-    });if (!user) {
-      return res.json({msg:"User not FOUND"})
+      user_email,
+    });
+    if (!user) {
+      return res.json({ msg: "User not FOUND" });
     }
-    const reset_token = crypto.randomBytes(32).toString("hex")
-    
+    const reset_token = crypto.randomBytes(32).toString("hex");
+
     await ResetPassModel.deleteMany({
-      userId: user._id 
-    })
+      userId: user._id,
+    });
     const newReset = newResetPassModel({
-      userId:user._id,
-      reset_token:token
-    }); await newReset.save()
-    
+      userId: user._id,
+      reset_token: token,
+    });
+    await newReset.save();
+
     await transporter.sendMail({
       to: user.user_email,
-      subject:"Enqode Password Reset",
-      html:
-      `<h1>Click the link below to Resetpass</h1>
-      <a href="${process.env.CLIENT_URL}/reset-pass/${token}">${process.env.CLIENT_URL}/reset-pass/${token}</a>`
-    }) 
-    res.json({msg:"Reset Link sent to Email"})
+      subject: "Enqode Password Reset",
+      html: `<h1>Click the link below to Resetpass</h1>
+      <a href="${process.env.CLIENT_URL}/reset-pass/${token}">${process.env.CLIENT_URL}/reset-pass/${token}</a>`,
+    });
+    res.json({ msg: "Reset Link sent to Email" });
   } catch (error) {
-    res.json({"error":error})
+    res.json({ error: error });
   }
-}
+};
 
-exports.resetpass = async(req,res)=>{
-  const {token} = req.params
- const user_pass = req.body.user_password
-try {
-  const resetToken = await ResetPassModel.findOne({"reset_token":token})
-  if(!resetToken){
-    return res.json({reset_sts:"1",msg:"Invalid"})
+exports.resetpass = async (req, res) => {
+  const { token } = req.params;
+  const user_pass = req.body.user_password;
+  try {
+    const resetToken = await ResetPassModel.findOne({ reset_token: token });
+    if (!resetToken) {
+      return res.json({ reset_sts: "1", msg: "Invalid" });
+    }
+    const upass = await bcrypt.hash(user_pass, 12);
+    const resetPass = await userModel.findOneAndUpdate(
+      {
+        _id: resetToken.userId,
+      },
+      {
+        $set: { user_pass: upass },
+      },
+      { new: true }
+    );
+    await ResetPassModel.deleteMany({
+      reset_token: token,
+    });
+    res.json({ reset_sts: "0", msg: "Your Password is updated" });
+  } catch (error) {
+    res.json({ error: error });
   }
-  const resetPass= await userModel.findOneAndUpdate({
-    _id: resetToken.userId
-  },{
-    $set:{user_pass:user_pass}
-  },{new:true}); res.json({reset_sts:"0",msg:"Your Password is updated"})
-} catch (error) {
-  res.json({"error":error})
-}}
+};
