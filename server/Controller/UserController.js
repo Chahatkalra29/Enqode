@@ -156,8 +156,8 @@ exports.forgetpass = async (req, res) => {
       reset_token: reset_token,
     });
     await newReset.save();
-     
-    const resetLink = `${process.env.CLIENT_URL}/reset-pass/${reset_token}`;//comment this out after adding a mail
+
+    const resetLink = `${process.env.CLIENT_URL}/reset-pass/${reset_token}`; //comment this out after adding a mail
     // await transporter.sendMail({
     //   to: user.user_email,
     //   subject: "Enqode Password Reset",
@@ -196,3 +196,17 @@ exports.resetpass = async (req, res) => {
     res.json({ error: error });
   }
 };
+
+exports.deleteqr= async (req,res) => {
+  const {qrid} = req.params
+  try {
+    const deleteQr = await linkQrModel.findByIdAndDelete(qrid)
+if (deleteQr) {
+  res.json({delete_sts:"0", msg:"QR is deleted"})
+} else {
+  res.json({delete_sts:"1", msg:"QR is not deleted"})
+}
+  } catch (error) {
+    res.json({"error":error})
+  }
+}
