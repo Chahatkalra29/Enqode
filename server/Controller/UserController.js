@@ -13,13 +13,14 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const crypto = require("crypto");
 const nodemailer = require("nodemailer");
-const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
-  },
-});
+
+// const transporter = nodemailer.createTransport({
+//   service: "gmail",
+//   auth: {
+//     user: process.env.EMAIL_USER,
+//     pass: process.env.EMAIL_PASS,
+//   },
+// });
 
 exports.addLinkQr = async (req, res) => {
   const { qrLink, qrColor } = req.body;
@@ -156,13 +157,13 @@ exports.forgetpass = async (req, res) => {
     });
     await newReset.save();
 
-    await transporter.sendMail({
-      to: user.user_email,
-      subject: "Enqode Password Reset",
-      html: `<h1>Click the link below to Resetpass</h1>
-      <a href="${process.env.CLIENT_URL}/reset-pass/${token}">${process.env.CLIENT_URL}/reset-pass/${token}</a>`,
-    });
-    res.json({ msg: "Reset Link sent to Email" });
+    // await transporter.sendMail({
+    //   to: user.user_email,
+    //   subject: "Enqode Password Reset",
+    //   html: `<h1>Click the link below to Resetpass</h1>
+    //   <a href="${process.env.CLIENT_URL}/reset-pass/${token}">${process.env.CLIENT_URL}/reset-pass/${token}</a>`,
+    // });
+    res.json({ msg: "Reset Link sent to Email", reset_link: "resetLink" });
   } catch (error) {
     res.json({ error: error });
   }

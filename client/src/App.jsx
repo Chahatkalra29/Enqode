@@ -7,15 +7,20 @@ import Dashboard from "./Components/Dashboard.jsx";
 import ProtectedRoute from "./Components/ProtectedRoute.jsx"
 import LinkQr from "./Components/LinkQr.jsx";
 import AllLinks from "./Components/AllLinks.jsx";
+import ForgetPass from "./Components/ForgetPass.jsx";
+import ResetPass from "./Components/ResetPass.jsx";
  
 const App = () => {
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
-          < Route path="/" element={<Login />} />
+          <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/forgetpass" element={<ForgetPass/>} />
+          <Route path="/reset-pass/:token" element={<ResetPass/>} />
+
           <Route element={<ProtectedRoute/>}>
           <Route path="/enqodeLink" element={<LinkQr/>}/>
           <Route path="/dashboard" element={<Dashboard/>}/>

@@ -123,6 +123,10 @@ const Login = () => {
         <Link to={"/register"} className="text-blue-500">
           Register here{" "}
         </Link>
+        <br /> <br />
+        <Link to={"/forgetPass"} className="text-blue-500">
+          Forgot Password?{" "}
+        </Link>
       </div>
     </div>
   );
