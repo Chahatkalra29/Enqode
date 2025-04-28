@@ -9,6 +9,7 @@ import LinkQr from "./Components/LinkQr.jsx";
 import AllLinks from "./Components/AllLinks.jsx";
 import ForgetPass from "./Components/ForgetPass.jsx";
 import ResetPass from "./Components/ResetPass.jsx";
+import { ToastContainer  } from "react-toastify";
  
 const App = () => {
   return (
@@ -28,6 +29,7 @@ const App = () => {
           </Route>
         </Routes>
       </BrowserRouter>
+      <ToastContainer/>
     </HelmetProvider>
   );
 };

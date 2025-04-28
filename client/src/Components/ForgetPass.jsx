@@ -2,13 +2,23 @@ import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { ShowToast } from '../Utilities/ShowToast';
 
 const ForgetPass = () => {
   const [email, setEmail] = useState("");
+  const navigate = useNavigate();
+
   const handleForgetButton = async () => {
     try {
       const response = await axios.post("http://localhost:5000/userapi/forgetpass",{email})
+      
       console.log(response.data)
+      if (response.data.reset_link) {
+        const token = response.data.reset_link.split('/').pop(); // extract token from reset_link
+        navigate(`/reset-pass/${token}`); // redirect
+      } else {
+        ShowToast(error,"error");
+      }
     } catch (error) {
       console.log(error)
     }
@@ -41,7 +51,7 @@ const ForgetPass = () => {
         <Link to={"/register"} className="text-blue-500">
           Register here{" "}
         </Link>
-          
+
       </div>
     </div>
   );

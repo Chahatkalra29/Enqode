@@ -151,19 +151,20 @@ exports.forgetpass = async (req, res) => {
     await ResetPassModel.deleteMany({
       userId: user._id,
     });
-    const newReset = newResetPassModel({
+    const newReset = new ResetPassModel({
       userId: user._id,
-      reset_token: token,
+      reset_token: reset_token,
     });
     await newReset.save();
-
+     
+    const resetLink = `${process.env.CLIENT_URL}/reset-pass/${reset_token}`;//comment this out after adding a mail
     // await transporter.sendMail({
     //   to: user.user_email,
     //   subject: "Enqode Password Reset",
     //   html: `<h1>Click the link below to Resetpass</h1>
     //   <a href="${process.env.CLIENT_URL}/reset-pass/${token}">${process.env.CLIENT_URL}/reset-pass/${token}</a>`,
     // });
-    res.json({ msg: "Reset Link sent to Email", reset_link: "resetLink" });
+    res.json({ msg: "Reset Link generated", reset_link: "resetLink" });
   } catch (error) {
     res.json({ error: error });
   }
@@ -183,7 +184,7 @@ exports.resetpass = async (req, res) => {
         _id: resetToken.userId,
       },
       {
-        $set: { user_pass: upass },
+        $set: { user_password: upass },
       },
       { new: true }
     );
