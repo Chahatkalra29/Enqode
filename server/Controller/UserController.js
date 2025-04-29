@@ -197,16 +197,34 @@ exports.resetpass = async (req, res) => {
   }
 };
 
-exports.deleteqr= async (req,res) => {
-  const {qrid} = req.params
+exports.deleteqr = async (req, res) => {
+  const { qrid } = req.params;
   try {
-    const deleteQr = await linkQrModel.findByIdAndDelete(qrid)
-if (deleteQr) {
-  res.json({delete_sts:"0", msg:"QR is deleted"})
-} else {
-  res.json({delete_sts:"1", msg:"QR is not deleted"})
-}
+    const deleteQr = await linkQrModel.findByIdAndDelete(qrid);
+    if (deleteQr) {
+      res.json({ delete_sts: "0", msg: "QR is deleted" });
+    } else {
+      res.json({ delete_sts: "1", msg: "QR is not deleted" });
+    }
   } catch (error) {
-    res.json({"error":error})
+    res.json({ error: error });
   }
-}
+};
+
+exports.editqr = async (req, res) => {
+  const { qrid } = req.params;
+  const qrLink = req.body.qrLink;
+  const qrColor = req.body.qrColor;
+  try {
+    const updateQr = await linkQrModel.findByIdAndUpdate(
+      qrid,
+      { qrLink, qrColor },
+      {
+        new: true,
+      }
+    );
+    res.json(updateQr)
+  } catch (error) {
+    res.json({ error: error });
+  }
+};
