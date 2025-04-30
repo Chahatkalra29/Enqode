@@ -70,7 +70,7 @@ const Login = () => {
   }, [errorTrigger]);
 
   return (
-    <div className="flex justify-center items-center h-screen">
+    <div className="flex justify-center items-center  h-screen bg-lav">
     <Helmet>
       <title>Login-Enqode</title>
     </Helmet>
@@ -87,8 +87,8 @@ const Login = () => {
         theme="dark"
         transition={Bounce}
       />
-      <div className="h-2/3 p-8 w-1/4  bg-[#151525] rounded-2xl space-y-3 shadow-xl border border-[#1f1f38]">
-        <h2 className="text-2xl mt-3 font-semibold text-cyan-400 tracking-widest text-center">
+      <div className="h-2/3 p-8 w-1/4 bg-txt-dark rounded-2xl space-y-3 shadow-xl border border-txt-dark">
+        <h2 className="text-2xl mt-3 font-semibold text-royal-blue tracking-widest text-center">
           ENQODE
         </h2>
         <input
@@ -96,7 +96,7 @@ const Login = () => {
           name="uemail"
           placeholder="Enter your registered email"
           required
-          className="w-full bg-[#1a1a2e] text-white border border-[#2e2e48] rounded-lg px-4 py-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 transition"
+          className="w-full bg-grey-soft text-white border border-grey-soft rounded-lg px-4 py-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-royal-blue transition"
           onChange={handleInputChange}
         />
         <input
@@ -104,11 +104,11 @@ const Login = () => {
           name="upass"
           placeholder="Password"
           required
-          className="w-full bg-[#1a1a2e] text-white border border-[#2e2e48] rounded-lg px-4 py-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 transition"
+          className="w-full bg-grey-soft text-white border border-grey-soft rounded-lg px-4 py-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-royal-blue transition"
           onChange={handleInputChange}
         />
         <button
-          className=" w-full py-3 mt-2 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-blue-500 hover:to-purple-600 rounded-xl text-white font-bold tracking-wide shadow-lg hover:shadow-cyan-500/50 transition-all duration-300"
+          className=" w-full py-3 mt-2 bg-royal-blue hover:from-lav hover:to-royal-blue rounded-xl text-bg-light font-bold tracking-wide shadow-lg hover:shadow-cyan-500/50 transition-all duration-300"
           onClick={handleFormSubmit}
         >
           Login
@@ -119,12 +119,12 @@ const Login = () => {
         >
           Test Toast
         </button> */}
-        <p className="text-gray-400">Don't have an account yet?</p>
-        <Link to={"/register"} className="text-blue-500">
+        <p className="text-lav">Don't have an account yet?</p>
+        <Link to={"/register"} className="text-royal-blue">
           Register here{" "}
         </Link>
         <br /> <br />
-        <Link to={"/forgetPass"} className="text-blue-500">
+        <Link to={"/forgetPass"} className="text-royal-blue">
           Forgot Password?{" "}
         </Link>
       </div>

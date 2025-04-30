@@ -2,11 +2,17 @@ import React, { useRef, useState } from "react";
 import { QRCodeCanvas } from "qrcode.react";
 import { Helmet } from "react-helmet-async";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const LinkQr = () => {
-  const [qrLinks, setQrLinks] = useState("");
-  const [qrColor, setQrColor] = useState("#000000");
+const location = useLocation()
+const qrData = location.state?.qrData || null;
+
+  
+  // const [qrLinks, setQrLinks] = useState("");
+  const [qrLinks, setQrLinks] = useState(qrData?qrData.qrLinks:"");
+  // const [qrColor, setQrColor] = useState("#000000");
+  const [qrColor, setQrColor] = useState(qrData?qrData.qrColor:"#000000");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const qRef = useRef();
@@ -41,19 +47,37 @@ const LinkQr = () => {
         return;
       }
 
-      const response = await axios.post(
-        "http://localhost:5000/userapi/addlinkqr",
-        {
-          qrLink: qrLinks,
-          qrColor: qrColor,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${utoken}`,
+      let response
+      if(qrData){
+        response = await axios.post(
+          `http://localhost:5000/userapi/editqr/${qrData._id}`,
+          {
+            qrLink: qrLinks,
+            qrColor: qrColor,
           },
-        }
-      );
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${utoken}`,
+            },
+          }
+        );
+      }else{
+        response = await axios.post(
+          "http://localhost:5000/userapi/addlinkqr",
+          {
+            qrLink: qrLinks,
+            qrColor: qrColor,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${utoken}`,
+            },
+          }
+        );
+      }
+      
 
       console.log("QR code saved:", response.data);
       setLoading(false);
@@ -86,6 +110,7 @@ const LinkQr = () => {
           <input
             id="url"
             type="text"
+            
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="https://example.com"
             value={qrLinks}
