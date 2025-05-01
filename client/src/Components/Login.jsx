@@ -4,6 +4,7 @@ import axios from "axios";
 import { toast, ToastContainer, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Helmet } from "react-helmet-async";
+import logo from "../assets/logo-transparent-bg.png"
 
 const Login = () => {
   const navigate = useNavigate()
@@ -88,9 +89,16 @@ const Login = () => {
         transition={Bounce}
       />
       <div className="h-2/3 p-8 w-1/4 bg-txt-dark rounded-2xl space-y-3 shadow-xl border border-txt-dark">
-        <h2 className="text-2xl mt-3 font-semibold text-royal-blue tracking-widest text-center">
+      <div className="flex flex-col items-center mb-6">
+        <img 
+                className="h-17 w-17" 
+                src={logo} 
+                alt="Enqode Logo" 
+              />
+        <h2 className="text-2xl mt-0 font-semibold text-royal-blue tracking-widest ">
           ENQODE
         </h2>
+        </div>
         <input
           type="email"
           name="uemail"
@@ -123,7 +131,7 @@ const Login = () => {
         <Link to={"/register"} className="text-royal-blue">
           Register here{" "}
         </Link>
-        <br /> <br />
+        <br /> 
         <Link to={"/forgetPass"} className="text-royal-blue">
           Forgot Password?{" "}
         </Link>
