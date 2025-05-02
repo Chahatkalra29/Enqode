@@ -88,7 +88,7 @@ const Login = () => {
         theme="dark"
         transition={Bounce}
       />
-      <div className="h-2/3 p-8 w-1/4 bg-txt-dark rounded-2xl space-y-3 shadow-xl border border-txt-dark">
+      <div className="h-2/3 p-8 w-1/4  bg-pink-100 rounded-2xl space-y-3 shadow-xl border border-txt-dark">
       <div className="flex flex-col items-center mb-6">
         <img 
                 className="h-17 w-17" 
