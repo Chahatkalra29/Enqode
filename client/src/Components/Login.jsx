@@ -71,7 +71,8 @@ const Login = () => {
   }, [errorTrigger]);
 
   return (
-    <div className="flex justify-center items-center  h-screen bg-lav">
+    <div className="flex justify-center items-center  min-h-screen bg-lav relative overflow-hidden">
+    <div className="absolute inset-0 bg-grid-pattern opacity-10"></div>               
     <Helmet>
       <title>Login-Enqode</title>
     </Helmet>
@@ -88,18 +89,19 @@ const Login = () => {
         theme="dark"
         transition={Bounce}
       />
-      <div className="h-2/3 p-8 w-1/4  bg-pink-100 rounded-2xl space-y-3 shadow-xl border border-txt-dark">
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-lav rounded-full filter blur-3xl"></div>
+      <div className="absolute top-0 right-0 w-96 h-96 bg-lav rounded-full filter blur-3xl"></div>
+      <div className="h-2/3 p-8 w-1/4  bg-txt-dark rounded-2xl space-y-3 shadow-xl border border-txt-dark">
       <div className="flex flex-col items-center mb-6">
         <img 
                 className="h-17 w-17" 
                 src={logo} 
                 alt="Enqode Logo" 
               />
-        <h2 className="text-2xl mt-0 font-semibold text-royal-blue tracking-widest ">
-          ENQODE
-        </h2>
+        <h1 className="text-2xl font-bold text-bg-light">Welcome Back</h1>
+        <p className="text-bg-light mt-1">Log in to your Enqode account</p>
         </div>
-        <input
+        <div> <input
           type="email"
           name="uemail"
           placeholder="Enter your registered email"
@@ -107,6 +109,14 @@ const Login = () => {
           className="w-full bg-grey-soft text-white border border-grey-soft rounded-lg px-4 py-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-royal-blue transition"
           onChange={handleInputChange}
         />
+
+        </div>
+       
+        <div className="flex items-center justify-between mb-1">
+        <Link to={"/forgetPass"} className="text-royal-blue text-xs hover:text-royal-blue/80">
+          Forgot Password?{" "}
+        </Link>
+        </div>
         <input
           type="password"
           name="upass"
@@ -127,14 +137,15 @@ const Login = () => {
         >
           Test Toast
         </button> */}
-        <p className="text-lav">Don't have an account yet?</p>
-        <Link to={"/register"} className="text-royal-blue">
+        <div className="text-center mt-6">
+        <p className="text-sm text-gray-400">Don't have an account yet?</p>
+        <Link to={"/register"} className="text-royal-blue hover:text-royal-blue/50 ">
           Register here{" "}
         </Link>
+        </div>
+       
         <br /> 
-        <Link to={"/forgetPass"} className="text-royal-blue">
-          Forgot Password?{" "}
-        </Link>
+        
       </div>
     </div>
   );
