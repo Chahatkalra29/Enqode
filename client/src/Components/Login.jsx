@@ -70,7 +70,7 @@ const Login = () => {
   }, [errorTrigger]);
 
   return (
-    <div className="flex justify-center items-center  min-h-screen bg-txt-dark relative overflow-hidden">
+    <div className="flex  flex-col justify-center items-center  min-h-screen bg-txt-dark relative overflow-hidde font-sf-pro">
       <div className="absolute bottom-0 left-0 w-72 h-72 bg-[#D6D4FF]/10 rounded-full filter blur-[120px] animate-pulse"></div>
       <div className="absolute top-0 right-0 w-72 h-72 bg-[#6C63FF]/10 rounded-full filter blur-[120px] animate-pulse"></div>
 
@@ -90,18 +90,18 @@ const Login = () => {
         theme="dark"
         transition={Bounce}
       />
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-lav rounded-full filter blur-3xl"></div>
-      <div className="absolute top-0 right-0 w-96 h-96 bg-lav rounded-full filter blur-3xl"></div>
-      <div className="h-2/3 p-8 w-1/4  bg-txt-dark rounded-2xl space-y-3 shadow-xl border border-txt-dark">
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-lav/30 rounded-full filter blur-3xl "></div>
+      <div className="absolute top-0 right-0 w-96 h-96 bg-lav/30 rounded-full filter blur-3xl"></div>
+      <div className="h-2/3 p-8 w-1/4  bg-txt-dark rounded-2xl space-y-3 shadow-xl border border-bg-light/10">
         <div className="flex flex-col items-center mb-6">
           <img className="h-17 w-17" src={logo} alt="Enqode Logo" />
-          <h1 className="text-2xl font-bold text-bg-light">Welcome Back</h1>
+          <h1 className="text-2xl font-bold  text-bg-light">Welcome Back</h1>
           <p className="text-bg-light mt-1">Log in to your Enqode account</p>
         </div>
         <div>
           <label htmlFor="uemail" className="block text-sm text-gray-300 mb-1">
             Email
-          </label>{" "}
+          </label>
           <input
             type="email"
             name="uemail"
@@ -135,7 +135,7 @@ const Login = () => {
         </div>
 
         <button
-          className=" w-full py-3 mt-2 bg-royal-blue hover:from-lav hover:to-royal-blue rounded-xl text-bg-light font-bold tracking-wide shadow-lg hover:shadow-cyan-500/50 transition-all duration-300"
+          className=" w-full py-3 mt-2 bg-royal-blue hover:from-lav hover:to-royal-blue rounded-xl text-bg-light font-bold tracking-wide shadow-lg hover:shadow-lav/40 transition-all duration-300"
           onClick={handleFormSubmit}
         >
           Login
@@ -158,6 +158,9 @@ const Login = () => {
 
         <br />
       </div>
+      <div className="text-center mt-8 text-gray-400 text-xs">
+          <p>© {new Date().getFullYear()} Enqode. All rights reserved.</p>
+        </div>
     </div>
   );
 };

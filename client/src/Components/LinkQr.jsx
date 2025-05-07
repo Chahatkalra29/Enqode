@@ -95,7 +95,7 @@ const qrData = location.state?.qrData || null;
   };
 
   return (
-    <div className="flex flex-col items-center min-h-screen p-6">
+    <div className="flex flex-col items-center min-h-screen p-6 font-sf-pro">
       <Helmet>
         <title>Enqode-Links</title>
       </Helmet>

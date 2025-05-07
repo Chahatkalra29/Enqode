@@ -1,9 +1,23 @@
 @import 'tailwindcss';
 
+@font-face {
+  font-family: SF-Pro;
+  font-style: normal;
+  font-weight: normal;
+  font-display: swap;
+  src: url("/fonts/SF-Pro.ttf") format("truetype");
+}
+
 @theme {
+  --font-sf-pro: "SF-Pro", sans-serif;
+
     --color-txt-dark: #373e49;
     --color-bg-light: #F5F7FA;
     --color-royal-blue: #6C63FF;
     --color-grey-soft: #4B5563;
     --color-lav: #D6D4FF;
   }
+ 
+ 
+    
+  
