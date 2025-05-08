@@ -40,8 +40,8 @@ const Register = () => {
       <Helmet>
         <title>Register-Enqode</title>
       </Helmet>
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-lav/30 rounded-full filter blur-3xl"></div>
-      <div className="absolute top-0 right-0 w-96 h-96 bg-lav/30   rounded-full filter blur-3xl"></div>
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-lav/10 rounded-full filter blur-3xl"></div>
+      <div className="absolute top-0 right-0 w-96 h-96 bg-lav/10   rounded-full filter blur-3xl"></div>
       <div className="h-2/3 p-8 w-1/4  bg-txt-dark rounded-2xl space-y-3 shadow-xl border border-bg-light/10">
       <div className="flex flex-col items-center mb-6">
           <img className="h-17 w-17" src={logo} alt="Enqode Logo" />

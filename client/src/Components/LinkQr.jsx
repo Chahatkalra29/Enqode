@@ -95,14 +95,14 @@ const qrData = location.state?.qrData || null;
   };
 
   return (
-    <div className="flex flex-col items-center min-h-screen p-6 font-sf-pro">
+    <div className="flex flex-col items-center min-h-screen p-6 font-sf-pro bg-txt-dark">
       <Helmet>
         <title>Enqode-Links</title>
       </Helmet>
 
-      <h1 className="text-3xl font-bold mb-6">Create QR Code</h1>
+      <h1 className="text-3xl font-bold mb-6 text-bg-light">Create QR Code</h1>
 
-      <div className="w-full max-w-md bg-white rounded-lg shadow-md p-6">
+      <div className="w-full max-w-md bg-txt-dark rounded-lg shadow-md p-6">
         <div className="mb-4">
           <label htmlFor="url" className="block text-gray-700 font-medium mb-2">
             Enter URL
@@ -169,7 +169,7 @@ const qrData = location.state?.qrData || null;
             <button
               onClick={saveQrCode}
               disabled={loading || !qrLinks}
-              className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 disabled:opacity-50"
+              className="px-4 py-2 bg-lav text-white rounded-md hover:bg-lav/90 disabled:opacity-50"
             >
               Save
             </button>
