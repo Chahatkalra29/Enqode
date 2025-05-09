@@ -95,23 +95,23 @@ const qrData = location.state?.qrData || null;
   };
 
   return (
-    <div className="flex flex-col items-center min-h-screen p-6 font-sf-pro bg-txt-dark">
+    <div className="flex flex-col items-center min-h-screen p-6 font-sf-pro bg-txt-dark ">
       <Helmet>
         <title>Enqode-Links</title>
       </Helmet>
 
-      <h1 className="text-3xl font-bold mb-6 text-bg-light">Create QR Code</h1>
+      <h1 className="text-3xl font-bold mb-6 text-lav">Create QR Code</h1>
 
-      <div className="w-full max-w-md bg-txt-dark rounded-lg shadow-md p-6">
+      <div className="w-full max-w-md bg-txt-dark rounded-lg shadow-md p-6 border border-bg-light/10">
         <div className="mb-4">
-          <label htmlFor="url" className="block text-gray-700 font-medium mb-2">
+          <label htmlFor="url" className="block text-lav font-medium mb-2">
             Enter URL
           </label>
           <input
             id="url"
             type="text"
             
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full bg-grey-soft text-white border border-grey-soft rounded-lg px-4 py-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-royal-blue transition"
             placeholder="https://example.com"
             value={qrLinks}
             onChange={(e) => setQrLinks(e.target.value)}
@@ -121,7 +121,7 @@ const qrData = location.state?.qrData || null;
         <div className="mb-6">
           <label
             htmlFor="color"
-            className="block text-gray-700 font-medium mb-2"
+            className="block text-lav font-medium mb-2"
           >
             QR Code Color
           </label>
@@ -129,7 +129,7 @@ const qrData = location.state?.qrData || null;
             <input
               id="color"
               type="color"
-              className="w-12 h-8 border border-gray-300 rounded"
+              className="w-12 h-8 border border-grey-soft rounded"
               value={qrColor}
               onChange={(e) => setQrColor(e.target.value)}
             />

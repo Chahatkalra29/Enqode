@@ -1,9 +1,11 @@
 import React from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate,useLocation } from 'react-router-dom'
 import axios from "axios";
+import logo from "../assets/logo-transparent-bg.png";
 
 const Navbar = () => {
     const navigate = useNavigate()
+    const location = useLocation()
     
     const handleLogOut = async () => {
       const token = localStorage.getItem('utoken')
@@ -22,19 +24,24 @@ const Navbar = () => {
         console.log(error)
       }
     }
-    
+    const isActive = (path) => location.pathname === path
     return (
-      <nav className='bg-txt-dark text-bg-light shadow-md py-4 px-6'>
+      <nav className='bg-txt-dark text-bg-light font-sf-pro shadow-md py-4 px-6'>
         <div className="container mx-auto">
           <div className="flex justify-between items-center">
             {/*logo */}
-            <Link to="/dashboard" className="text-xl font-bold">Enqode</Link>
+            <div className='flex items-center text-bg-light'><Link to="/dashboard" className="text-xl font-bold">
+            <img className="h-15 w-15" src={logo} alt="Enqode Logo" /></Link>
+            <span>Enqode</span></div>
+            
             
             {/*desktop menu */}
+            
             <ul className="flex space-x-6">
-              <li><Link to="/dashboard" className="hover:text-blue-300">Dashboard</Link></li>
-              <li><Link to="/enqodeLink" className="hover:text-blue-300">New QR</Link></li>
-              <li><Link to="/allLinks" className="hover:text-blue-300">Saved</Link></li>
+            <div className='flex space-x-6 items-center'><li><Link to="/dashboard" className="hover:text-royal-blue">Dashboard</Link></li>
+              <li><Link to="/enqodeLink" className="hover:text-royal-blue">New QR</Link></li>
+              <li><Link to="/allLinks" className="hover:text-royal-blue">Saved</Link></li></div>
+              
               <li>
                 <button 
                   onClick={handleLogOut}
