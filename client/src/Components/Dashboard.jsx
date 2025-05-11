@@ -3,14 +3,14 @@ import { Helmet } from "react-helmet-async";
 
 const Dashboard = () => {
   return (
-    <div className="bg-txt-dark">
+    <div className="bg-txt-dark font-sf-pro">
       <Helmet>
         <title>Dashboard-Enqode</title>
       </Helmet>
       <div className="flex justify-between items-center h-24 px-14">
         <div>
           {" "}
-          <h2 className="text-2xl font-bold text-bg-light ">Your QR Links</h2>
+          <h2 className="text-2xl font-bold text-bg-light tracking-wide">Your QR Links</h2>
           <h4 className="text-gray-400">Manage your saved QR codes</h4>
         </div>
 

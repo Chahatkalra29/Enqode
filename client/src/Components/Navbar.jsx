@@ -28,21 +28,21 @@ const Navbar = () => {
 
   const linkClasses = (path) =>
     isActive(path)
-      ? 'bg-royal-blue/25 text-white font-semibold px-4 py-2 rounded-md transition'
+      ? 'bg-royal-blue/25 text-white font-semibold px-4 py-2 rounded-md transition tracking-wider'
       : 'text-[var(--color-bg-light)] hover:text-[var(--color-royal-blue)] px-4 py-2 transition';
 
   return (
     
-    <nav className="bg-[var(--color-txt-dark)] text-[var(--color-bg-light)] font-[var(--font-sf-pro)] shadow-md py-4 px-6 border-b border-grey-soft">
+    <nav className="bg-[var(--color-txt-dark)] text-[var(--color-bg-light)] font-sf-pro shadow-md py-4 px-6 border-b border-grey-soft">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         {/* Logo */}
         <Link to="/dashboard" className="flex items-center space-x-2">
           <img src={logo} alt="Enqode Logo" className="h-10 w-10" />
-          <span className="text-xl font-semibold tracking-wide">Enqode</span>
+          <span className="text-xl font-semibold tracking-wider">Enqode</span>
         </Link>
 
         {/* Nav Links */}
-        <ul className="flex space-x-4 items-center text-base font-medium">
+        <ul className="flex space-x-4 items-center text-base font-medium tracking-wide">
           <li>
             <Link to="/dashboard" className={linkClasses('/dashboard')}>
               Dashboard

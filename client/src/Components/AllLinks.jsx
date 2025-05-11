@@ -76,8 +76,8 @@ const AllLinks = () => {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-40">
-        <p className="text-lg font-medium">Loading your links...</p>
+      <div className="flex justify-center items-center h-40 bg-txt-dark h-screen">
+        <p className="text-lg font-medium text-gray-400 ">Loading your links...</p>
       </div>
     );
   }
@@ -98,12 +98,12 @@ const AllLinks = () => {
 
   if (qrLinks.length === 0) {
     return (
-      <div className="p-4 bg-yellow-50 border border-yellow-200 rounded-md">
-        <p className="text-yellow-700">
+      <div className="p-4 bg-txt-dark border border-grey-soft rounded-md">
+        <p className="text-gray-400">
           No QR links found. Create some QR codes first!
         </p>
         <button
-          className="mt-2 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+          className="mt-2 px-4 py-2 bg-royal-blue text-white rounded-md hover:bg-royal-blue/80"
           onClick={() => (window.location.href = "/enqodeLink")}
         >
           Create New QR Code
@@ -114,10 +114,14 @@ const AllLinks = () => {
 
   return (
     <div className="p-4 bg-txt-dark font-sf-pro">
-      <div className="flex justify-between items-center mb-4 ">
+    <div className="absolute bottom-0 left-0 w-72 h-72 bg-lav/10 rounded-full filter blur-[120px] animate-pulse"></div>
+      <div className="absolute top-0 right-60 w-72 h-72 bg-lav/10 rounded-full filter blur-[120px] animate-pulse"></div>
+      
+      
+      <div className="flex justify-between items-center mb-6 mt-4 ">
         <div>
           {" "}
-          <h2 className="text-2xl font-bold text-bg-light">Your QR Links</h2>
+          <h2 className="text-2xl font-bold text-bg-light tracking-wider">Your QR Links</h2>
           <h4 className="text-gray-400">Manage your saved QR codes</h4>
         </div>
 
@@ -128,33 +132,35 @@ const AllLinks = () => {
           Create New QR
         </button>
       </div>
-      <table className="w-full border-collapse border border-grey-soft  ">
-        <thead className="bg-txt-dark ">
+       <div className="overflow-x-auto rounded-lg shadow-md border-2 border-grey-soft bg-txt-dark ">
+
+      <table className="w-full border-collapse  ">
+        <thead className="bg-txt-dark border-b border-grey-soft text-gray-400">
           <tr className="">
-            <th className="border-b border-grey-soft p-2 bg-txt-dark text-gray-400 rounded-tl-md ">
+            <th className=" p-2  ">
               QR codes
             </th>
-            <th className="border-b border-grey-soft p-2 bg-txt-dark text-gray-400">
+            <th className=" p-2 ">
               Color
             </th>
-            <th className="border-b border-grey-soft p-2 bg-txt-dark text-gray-400">
+            <th className=" p-2 ">
               Type
             </th>
-            <th className="border-b border-grey-soft p-2 bg-txt-dark text-gray-400">
+            <th className=" p-2 ">
               Status
             </th>
             <th
-              className="border-b border-grey-soft p-2 bg-txt-dark text-gray-400"
+              className=" p-2 "
               colSpan={2}
             >
               Actions
             </th>
           </tr>
         </thead>
-        <tbody>
+        <tbody >
           {qrLinks.map((qr, index) => (
-            <tr key={index} className="bg-gray-50">
-              <td className="border-b border-grey-soft p-2 bg-txt-dark text-bg-light flex justify-center items-center">
+            <tr key={index} className="bg-gray-50 border-b border-grey-soft">
+              <td className=" p-2 bg-txt-dark text-bg-light flex justify-center items-center">
                 <QRCodeCanvas
                   value={qr.qrLink} 
                   size={100}
@@ -163,16 +169,16 @@ const AllLinks = () => {
                   className=" border border-grey-soft rounded "
                 />
               </td>
-              <td className="border-b border-grey-soft p-2 bg-txt-dark text-bg-light text-center">
+              <td className=" p-2 bg-txt-dark text-bg-light text-center">
                 {qr.qrColor}
               </td>
-              <td className="border-b border-grey-soft p-2 bg-txt-dark capitalize text-gray-400 text-center">
+              <td className=" p-2 bg-txt-dark capitalize text-gray-400 text-center">
                 {qr.qrType}
               </td>
-              <td className="border-b border-grey-soft p-2 bg-txt-dark text-gray-400 text-center">
+              <td className=" p-2 bg-txt-dark text-gray-400 text-center">
                 {qr.status}
               </td>
-              <td className="border-b border-grey-soft p-2 bg-txt-dark text-gray-400 text-center">
+              <td className=" p-2 bg-txt-dark text-gray-400 text-center">
                 <button onClick={() => editQr(qr)} title="Edit">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -190,7 +196,7 @@ const AllLinks = () => {
                   </svg>
                 </button>
               </td>
-              <td className="border-b border-grey-soft p-2 bg-txt-dark text-gray-400">
+              <td className=" p-2 bg-txt-dark text-gray-400">
                 <button onClick={() => deleteQr(qr._id)} title="Delete">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -211,7 +217,7 @@ const AllLinks = () => {
             </tr>
           ))}
         </tbody>
-      </table>
+      </table></div>
     </div>
   );
 };

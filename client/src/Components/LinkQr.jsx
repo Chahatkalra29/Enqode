@@ -85,7 +85,7 @@ const LinkQr = () => {
 
       setTimeout(() => {
         navigate("/allLinks");
-      }, 2000);
+      }, 5000);
     } catch (err) {
       console.error("Error saving QR code:", err);
       setError(
@@ -102,7 +102,7 @@ const LinkQr = () => {
         <title>Enqode-Links</title>
       </Helmet>
 
-      <h1 className="text-3xl font-bold text-center mb-6 text-white">
+      <h1 className="text-3xl font-bold text-center mb-2 text-white tracking-wider">
         Create QR Code
       </h1>
       <p className="text-center text-gray-400 mb-8">
