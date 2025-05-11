@@ -1,60 +1,73 @@
-import React from 'react'
-import { Link, useNavigate,useLocation } from 'react-router-dom'
-import axios from "axios";
-import logo from "../assets/logo-transparent-bg.png";
+import React from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import axios from 'axios';
+import logo from '../assets/logo-transparent-bg.png';
 
 const Navbar = () => {
-    const navigate = useNavigate()
-    const location = useLocation()
-    
-    const handleLogOut = async () => {
-      const token = localStorage.getItem('utoken')
-      try {
-        const response = await axios.get("http://localhost:5000/userapi/logoutuser", {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        console.log(response)
-        localStorage.removeItem('utoken')
-        navigate('/login')
-        
-      } catch (error) {
-        console.log(error)
-      }
-    }
-    const isActive = (path) => location.pathname === path
-    return (
-      <nav className='bg-txt-dark text-bg-light font-sf-pro shadow-md py-4 px-6'>
-        <div className="container mx-auto">
-          <div className="flex justify-between items-center">
-            {/*logo */}
-            <div className='flex items-center text-bg-light'><Link to="/dashboard" className="text-xl font-bold">
-            <img className="h-15 w-15" src={logo} alt="Enqode Logo" /></Link>
-            <span>Enqode</span></div>
-            
-            
-            {/*desktop menu */}
-            
-            <ul className="flex space-x-6">
-            <div className='flex space-x-6 items-center'><li><Link to="/dashboard" className="hover:text-royal-blue">Dashboard</Link></li>
-              <li><Link to="/enqodeLink" className="hover:text-royal-blue">New QR</Link></li>
-              <li><Link to="/allLinks" className="hover:text-royal-blue">Saved</Link></li></div>
-              
-              <li>
-                <button 
-                  onClick={handleLogOut}
-                  className="bg-red-500 hover:bg-red-600 px-4 py-2 rounded"
-                >
-                  Logout
-                </button>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-    )
-}
+  const navigate = useNavigate();
+  const location = useLocation();
 
-export default Navbar
+  const handleLogOut = async () => {
+    const token = localStorage.getItem('utoken');
+    try {
+      await axios.get('http://localhost:5000/userapi/logoutuser', {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      localStorage.removeItem('utoken');
+      navigate('/login');
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const isActive = (path) => location.pathname === path;
+
+  const linkClasses = (path) =>
+    isActive(path)
+      ? 'bg-[var(--color-royal-blue)] text-white font-semibold px-4 py-2 rounded-full transition'
+      : 'text-[var(--color-bg-light)] hover:text-[var(--color-royal-blue)] px-4 py-2 transition';
+
+  return (
+    <nav className="bg-[var(--color-txt-dark)] text-[var(--color-bg-light)] font-[var(--font-sf-pro)] shadow-md py-4 px-6">
+      <div className="max-w-7xl mx-auto flex justify-between items-center">
+        {/* Logo */}
+        <Link to="/dashboard" className="flex items-center space-x-2">
+          <img src={logo} alt="Enqode Logo" className="h-10 w-10" />
+          <span className="text-xl font-semibold tracking-wide">Enqode</span>
+        </Link>
+
+        {/* Nav Links */}
+        <ul className="flex space-x-4 items-center text-base font-medium">
+          <li>
+            <Link to="/dashboard" className={linkClasses('/dashboard')}>
+              Dashboard
+            </Link>
+          </li>
+          <li>
+            <Link to="/enqodeLink" className={linkClasses('/enqodeLink')}>
+              New QR
+            </Link>
+          </li>
+          <li>
+            <Link to="/allLinks" className={linkClasses('/allLinks')}>
+              Saved
+            </Link>
+          </li>
+        </ul>
+
+        {/* Logout */}
+        <button
+          onClick={handleLogOut}
+          className="bg-[var(--color-txt-dark)] text-[var(--color-bg-light)] px-4 py-2 rounded hover:bg-[var(--color-grey-soft)] transition"
+        >
+          Logout
+        </button>
+      </div>
+    </nav>
+  );
+};
+
+export default Navbar;
