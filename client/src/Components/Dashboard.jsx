@@ -7,8 +7,22 @@ const Dashboard = () => {
       <Helmet>
         <title>Dashboard-Enqode</title>
       </Helmet>
-      <h2 className="text-blue-500 text-5xl font-bold flex justify-center h-screen items-center">Welcome to Enqode</h2>
-      <h2 className="text-blue-600 text-5xl font-bold flex justify-center h-screen items-center">Enqode – Quick. Clean. QR.</h2>   
+      <div className="flex justify-between items-center h-24 px-14">
+        <div>
+          {" "}
+          <h2 className="text-2xl font-bold text-bg-light ">Your QR Links</h2>
+          <h4 className="text-gray-400">Manage your saved QR codes</h4>
+        </div>
+
+        <button
+          className="px-4 py-2 bg-royal-blue text-white rounded-md hover:bg-royal-blue/80"
+          onClick={() => (window.location.href = "/enqodeLink")}
+        >
+          Create New QR
+        </button>
+      </div>
+      <div className="bg-txt-dark h-screen"></div>
+        
     </div>
   );
 };

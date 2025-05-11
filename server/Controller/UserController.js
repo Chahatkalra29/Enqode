@@ -23,19 +23,21 @@ const nodemailer = require("nodemailer");
 // });
 
 exports.addLinkQr = async (req, res) => {
-  const { qrLink, qrColor } = req.body;
+  const { qrLink, qrColor, qrType } = req.body;
   const user = req.user.id;
 
-  if (!qrLink || !qrColor) {
-    return res.status(400).json({ error: "QR link and color are required" });
-  }
+ if (!qrLink || !qrColor || !qrType) {
+  return res.status(400).json({ error: "QR link, color, and type are required" });
+}
+
 
   try {
     const newLinkQr = new LinkQr({
-      qrLink,
-      qrColor,
-      user,
-    });
+  qrLink,
+  qrColor,
+  qrType,
+  user,
+});
 
     const saveQr = await newLinkQr.save();
     res.status(201).json(saveQr);
@@ -213,16 +215,15 @@ exports.deleteqr = async (req, res) => {
 
 exports.editqr = async (req, res) => {
   const { qrid } = req.params;
-  const qrLink = req.body.qrLink;
-  const qrColor = req.body.qrColor;
+  const { qrLink, qrColor, qrType } = req.body;
+
   try {
     const updateQr = await linkQrModel.findByIdAndUpdate(
-      qrid,
-      { qrLink, qrColor },
-      {
-        new: true,
-      }
-    );
+  qrid,
+  { qrLink, qrColor, qrType },
+  { new: true }
+);
+
     res.json(updateQr)
   } catch (error) {
     res.json({ error: error });

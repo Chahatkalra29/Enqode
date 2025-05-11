@@ -12,7 +12,12 @@ const LinkQrSchema= new mongoose.Schema({
     }, qrColor:{
         type: String,
         required: true,
-    },status:{
+    },
+    qrType: {
+  type: String,
+  enum: ['url', 'text'],
+  required: true,
+},status:{
         type:String,
         enum:['enable','disable'],
         default:'enable'

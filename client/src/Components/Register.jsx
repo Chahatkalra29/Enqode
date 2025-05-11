@@ -45,7 +45,7 @@ const Register = () => {
       <div className="h-2/3 p-8 w-1/4  bg-txt-dark rounded-2xl space-y-3 shadow-xl border border-bg-light/10">
       <div className="flex flex-col items-center mb-6">
           <img className="h-17 w-17" src={logo} alt="Enqode Logo" />
-          <h1 className="text-2xl font-bold text-bg-light">Create Account</h1>
+          <h1 className="text-2xl font-bold text-bg-light tracking-wider">Create Account</h1>
           <p className="text-bg-light mt-1">
             Join Enqode and start creating QR codes
           </p>

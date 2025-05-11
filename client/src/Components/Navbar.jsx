@@ -6,6 +6,7 @@ import logo from '../assets/logo-transparent-bg.png';
 const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
+ 
 
   const handleLogOut = async () => {
     const token = localStorage.getItem('utoken');
@@ -27,11 +28,12 @@ const Navbar = () => {
 
   const linkClasses = (path) =>
     isActive(path)
-      ? 'bg-[var(--color-royal-blue)] text-white font-semibold px-4 py-2 rounded-full transition'
+      ? 'bg-royal-blue/25 text-white font-semibold px-4 py-2 rounded-md transition'
       : 'text-[var(--color-bg-light)] hover:text-[var(--color-royal-blue)] px-4 py-2 transition';
 
   return (
-    <nav className="bg-[var(--color-txt-dark)] text-[var(--color-bg-light)] font-[var(--font-sf-pro)] shadow-md py-4 px-6">
+    
+    <nav className="bg-[var(--color-txt-dark)] text-[var(--color-bg-light)] font-[var(--font-sf-pro)] shadow-md py-4 px-6 border-b border-grey-soft">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         {/* Logo */}
         <Link to="/dashboard" className="flex items-center space-x-2">
@@ -67,6 +69,7 @@ const Navbar = () => {
         </button>
       </div>
     </nav>
+    
   );
 };
 
