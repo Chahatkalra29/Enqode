@@ -76,7 +76,7 @@ const AllLinks = () => {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-40 bg-txt-dark h-screen">
+      <div className="flex justify-center items-center bg-txt-dark h-screen">
         <p className="text-lg font-medium text-gray-400 ">Loading your links...</p>
       </div>
     );

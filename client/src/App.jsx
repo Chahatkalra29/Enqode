@@ -10,13 +10,14 @@ import AllLinks from "./Components/AllLinks.jsx";
 import ForgetPass from "./Components/ForgetPass.jsx";
 import ResetPass from "./Components/ResetPass.jsx";
 import { ToastContainer  } from "react-toastify";
+import Landing from "./Components/Landing.jsx";
  
 const App = () => {
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Login />} />
+          <Route path="/" element={<Landing/>} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/forgetpass" element={<ForgetPass/>} />
