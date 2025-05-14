@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 
 const Landing = () => {
   return (
-    <div className="bg-txt-dark font-sf-pro min-h-screen flex flex-col">
+    <div className=" font-sf-pro min-h-screen flex flex-col">
       {/* Navbar */}
-      <nav className="border-b border-grey-soft text-bg-light shadow-md py-4 px-6">
+      <nav className="border-b bg-txt-dark border-grey-soft text-bg-light shadow-md py-4 px-6">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <Link to="/" className="flex items-center space-x-2">
             <img src={logo} alt="Enqode Logo" className="h-10 w-10" />
@@ -14,12 +14,18 @@ const Landing = () => {
           </Link>
           <ul className="flex space-x-4 text-base font-medium">
             <li>
-              <Link to="/login" className="px-4 py-2 text-white hover:bg-royal-blue/80 rounded-md">
+              <Link
+                to="/login"
+                className="px-4 py-2 text-white hover:bg-royal-blue/80 rounded-md"
+              >
                 Login
               </Link>
             </li>
             <li>
-              <Link to="/register" className="px-4 py-2 bg-royal-blue text-white hover:bg-royal-blue/80 rounded-md">
+              <Link
+                to="/register"
+                className="px-4 py-2 bg-royal-blue text-white hover:bg-royal-blue/80 rounded-md"
+              >
                 Register
               </Link>
             </li>
@@ -28,7 +34,7 @@ const Landing = () => {
       </nav>
 
       {/* Hero Section */}
-      <main className="flex flex-col md:flex-row items-center justify-between px-6 md:px-20 py-16 gap-10 flex-1">
+      <main className=" bg-txt-dark flex flex-col md:flex-row items-center justify-between px-6 md:px-20 py-16 gap-10 flex-1">
         {/* Left: Content */}
         <div className="max-w-xl text-center md:text-left space-y-6">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
@@ -40,7 +46,9 @@ const Landing = () => {
           </h1>
 
           <p className="text-gray-400 text-lg">
-            Enqode helps you create stunning, customizable QR codes for your business, products, or personal use. Easy to generate, customize, and track.
+            Enqode helps you create stunning, customizable QR codes for your
+            business, products, or personal use. Easy to generate, customize,
+            and track.
           </p>
 
           <div className="flex flex-wrap gap-4 justify-center md:justify-start">
@@ -59,9 +67,15 @@ const Landing = () => {
           {/* Trust Badge */}
           <div className="flex items-center gap-2 text-sm text-gray-400 pt-2 justify-center md:justify-start">
             <div className="flex items-center text-bg-light text-lg">
-              <span className="bg-royal-blue rounded-full w-6 h-6 flex items-center justify-center">✓</span>
-              <span className="bg-royal-blue rounded-full w-6 h-6 -ml-2 flex items-center justify-center">✓</span>
-              <span className="bg-royal-blue rounded-full w-6 h-6 -ml-2 flex items-center justify-center">✓</span>
+              <span className="bg-royal-blue rounded-full w-6 h-6 flex items-center justify-center">
+                ✓
+              </span>
+              <span className="bg-royal-blue rounded-full w-6 h-6 -ml-2 flex items-center justify-center">
+                ✓
+              </span>
+              <span className="bg-royal-blue rounded-full w-6 h-6 -ml-2 flex items-center justify-center">
+                ✓
+              </span>
             </div>
             <span>Trusted by 10,000+ users worldwide</span>
           </div>
@@ -78,8 +92,17 @@ const Landing = () => {
           </div>
         </div>
       </main>
+      <div
+        className="bg-[#262b33]
+      "
+      >
+        <div className="flex flex-col text-bg-light justify-center items-center">
+          <h2>premium features</h2>
+          <p>know more</p>
+        </div>
+      </div>
     </div>
   );
 };
 
-export default Landing; 
+export default Landing;

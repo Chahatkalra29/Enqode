@@ -18,7 +18,7 @@ const Navbar = () => {
         },
       });
       localStorage.removeItem('utoken');
-      navigate('/login');
+      navigate('/');
     } catch (error) {
       console.log(error);
     }
