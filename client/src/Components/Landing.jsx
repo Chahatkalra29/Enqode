@@ -1,6 +1,7 @@
 import React from "react";
 import logo from "../assets/logo-transparent-bg.png";
 import { Link } from "react-router-dom";
+import Footer from "./Footer";
 
 const Landing = () => {
   return (
@@ -96,11 +97,12 @@ const Landing = () => {
         className="bg-[#262b33]
       "
       >
-        <div className="flex flex-col text-bg-light justify-center items-center">
-          <h2>premium features</h2>
-          <p>know more</p>
+        <div className="flex flex-col text-bg-light justify-center items-center space-y-3">
+          <h2 className="bg-gradient-to-r from-royal-blue to-lav bg-clip-text text-transparent text-3xl">Premium features</h2>
+          <p className="text-bg-light text-xl">Everything you need to create professional QR codes</p>
         </div>
       </div>
+      <Footer/>
     </div>
   );
 };
