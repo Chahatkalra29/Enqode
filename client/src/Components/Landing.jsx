@@ -93,13 +93,13 @@ const Landing = () => {
           </div>
         </div>
       </main>
-      <div className="bg-[#262b33]"> <div className=""><div className="flex flex-col text-bg-light justify-center items-center space-y-2">
+      <div className="bg-[#262b33] h-9/12"> <div className=""><div className="flex flex-col text-bg-light justify-center items-center space-y-2">
           <h2 className="bg-gradient-to-r from-royal-blue to-lav bg-clip-text text-transparent text-3xl pt-3">
             Premium features
           </h2>
-          <p className="text-bg-light text-xl">
+          <p className="text-bg-light/50 text-xl">
             Everything you need to create professional QR codes
-          </p><div className=" flex items-center justify-center px-4 pb-5">
+          </p><div className=" flex items-center justify-center px-4 pb-5 space-x-10">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-6xl ">
             {/* Customizable Designs */}
             <div
