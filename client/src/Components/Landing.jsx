@@ -49,7 +49,7 @@ const Landing = () => {
           <p className="text-gray-400 text-lg">
             Enqode helps you create stunning, customizable QR codes for your
             business, products, or personal use. Easy to generate, customize,
-            and track.
+            and maintain.
           </p>
 
           <div className="flex flex-wrap gap-4 justify-center md:justify-start">
@@ -93,7 +93,7 @@ const Landing = () => {
           </div>
         </div>
       </main>
-      <div className="bg-[#262b33] h-9/12"> <div className=""><div className="flex flex-col text-bg-light justify-center items-center space-y-2">
+      <div className="bg-[#262b33] h-9/12 "> <div className=""><div className="flex flex-col text-bg-light justify-center items-center space-y-2">
           <h2 className="bg-gradient-to-r from-royal-blue to-lav bg-clip-text text-transparent text-3xl pt-3">
             Premium features
           </h2>
