@@ -93,8 +93,8 @@ const Landing = () => {
           </div>
         </div>
       </main>
-      <div className="bg-[#262b33] h-9/12 "> <div className=""><div className="flex flex-col text-bg-light justify-center items-center space-y-2">
-          <h2 className="bg-gradient-to-r from-royal-blue to-lav bg-clip-text text-transparent text-3xl pt-3">
+      <div className="bg-[#262b33] h-9/12 pb-8"> <div className=""><div className="flex flex-col text-bg-light justify-center items-center space-y-2">
+          <h2 className="bg-gradient-to-r from-royal-blue to-lav bg-clip-text text-transparent text-3xl pt-6">
             Premium features
           </h2>
           <p className="text-bg-light/50 text-xl">
@@ -188,6 +188,7 @@ const Landing = () => {
         
         
       </div>
+      <div className="h-screen bg-txt-dark text-3xl text-bg-light" > Faqs</div>
       <Footer />
     </div>
   );
