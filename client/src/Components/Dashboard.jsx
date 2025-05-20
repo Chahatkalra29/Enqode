@@ -1,5 +1,6 @@
 import React from "react";
 import { Helmet } from "react-helmet-async";
+import Footer from "./Footer";
 
 const Dashboard = () => {
   return (
@@ -117,7 +118,8 @@ const Dashboard = () => {
         
         
       </div>
-        
+        <div>FAQs section</div>
+        <Footer/>
     </div>
   );
 };

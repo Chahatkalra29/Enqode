@@ -94,7 +94,8 @@ const Landing = () => {
         </div>
       </main>
       
-      <div className="h-screen bg-txt-dark text-3xl text-bg-light" > Video section</div>
+      <div className="h-screen bg-txt-dark text-3xl text-bg-light" > Features  timeline section</div> 
+      <div className="h-screen bg-txt-dark text-3xl text-bg-light" > Video section</div> 
       <Footer />
     </div>
   );
