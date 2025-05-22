@@ -118,8 +118,47 @@ const Dashboard = () => {
         
         
       </div>
-        <div>FAQs section</div>
-        <Footer/>
+        <div className="bg-[#1f232a] text-white py-12 px-4 md:px-16">
+  <h2 className="text-3xl font-bold text-center mb-8 bg-gradient-to-r from-royal-blue to-lav bg-clip-text text-transparent">
+    Frequently Asked Questions
+  </h2>
+  <div className="space-y-6 max-w-4xl mx-auto">
+    {/* Question 1 */}
+    <details className="group bg-grey-soft/40 p-5 rounded-lg cursor-pointer border border-grey-soft">
+      <summary className="flex justify-between items-center font-semibold">
+        <span>How do I create a new QR code?</span>
+        <span className="group-open:rotate-180 transition-transform">&#9660;</span>
+      </summary>
+      <p className="mt-2 text-bg-light/60">
+        Click on the “Create New QR” button at the top right of the dashboard. Fill in the necessary details and customize your QR code.
+      </p>
+    </details>
+
+    {/* Question 2 */}
+    <details className="group bg-grey-soft/40 p-5 rounded-lg cursor-pointer border border-grey-soft">
+      <summary className="flex justify-between items-center font-semibold">
+        <span>Can I edit my saved QR codes?</span>
+        <span className="group-open:rotate-180 transition-transform">&#9660;</span>
+      </summary>
+      <p className="mt-2 text-bg-light/60">
+        Yes, go to your saved QR codes list and click on the edit icon next to the code you want to modify.
+      </p>
+    </details>
+
+    {/* Question 3 */}
+    <details className="group bg-grey-soft/40 p-5 rounded-lg cursor-pointer border border-grey-soft">
+      <summary className="flex justify-between items-center font-semibold">
+        <span>Are my QR codes secure?</span>
+        <span className="group-open:rotate-180 transition-transform">&#9660;</span>
+      </summary>
+      <p className="mt-2 text-bg-light/60">
+        Absolutely. You can password-protect your QR codes to ensure only authorized users can access or modify them.
+      </p>
+    </details>
+  </div>
+</div>
+
+        <Footer/> 
     </div>
   );
 };
