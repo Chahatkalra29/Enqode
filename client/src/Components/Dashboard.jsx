@@ -24,8 +24,19 @@ const Dashboard = () => {
           Create New QR
         </button>
       </div>
-      <div className="bg-txt-dark h-1/2"> Welcome</div>
-      <div className="bg-[#262b33] h-9/12 pb-8">
+      <div className=" text-center space-y-5  bg-gradient-to-b from-txt-dark to-[#1f232a]">
+        
+        <h1 className="text-4xl md:text-5xl font-extrabold text-bg-light mt-13">
+          Generate <span className="bg-gradient-to-r from-royal-blue to-lav bg-clip-text text-transparent">Stunning QR Codes</span> in
+          Seconds
+        </h1>
+        <p className="text-lg text-bg-light/50">
+          Design professional, trackable QR codes in just a few clicks.
+        </p>
+        <button className="mt-4 px-6 py-3 mb-10 bg-royal-blue text-white rounded-md shadow hover:bg-royal-blue/80 transition ">
+          Generate My First QR        </button>
+      </div>
+      <div className="bg-[#1f232a] h-9/12 pb-8">
         {" "}
         <div className="">
           <div className="flex flex-col text-bg-light justify-center items-center space-y-2">
@@ -124,13 +135,13 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-      <div className="bg-[#1f232a] text-white py-12 px-4 md:px-16">
+      <div className="bg-[#1f232a] text-white py-12 px-4 md:px-16 font-sf-pro">
         <h2 className="text-3xl font-bold text-center mb-8 bg-gradient-to-r from-royal-blue to-lav bg-clip-text text-transparent">
           Frequently Asked Questions
         </h2>
         <div className="space-y-6 max-w-4xl mx-auto">
           {/* Question 1 */}
-          <details className="group bg-grey-soft/40 p-5 rounded-lg cursor-pointer border border-grey-soft">
+          <details className="group bg-grey-soft/40 p-5 rounded-lg cursor-pointer border border-grey-soft hover:ring-1 hover:ring-royal-blue">
             <summary className="flex justify-between items-center font-semibold">
               <span>How do I create a new QR code?</span>
               <span className="group-open:rotate-180 transition-transform">
@@ -145,7 +156,7 @@ const Dashboard = () => {
           </details>
 
           {/* Question 2 */}
-          <details className="group bg-grey-soft/40 p-5 rounded-lg cursor-pointer border border-grey-soft">
+          <details className="group bg-grey-soft/40 p-5 rounded-lg cursor-pointer border border-grey-soft hover:ring-1 hover:ring-royal-blue">
             <summary className="flex justify-between items-center font-semibold">
               <span>Can I edit my saved QR codes?</span>
               <span className="group-open:rotate-180 transition-transform">
@@ -159,7 +170,7 @@ const Dashboard = () => {
           </details>
 
           {/* Question 3 */}
-          <details className="group bg-grey-soft/40 p-5 rounded-lg cursor-pointer border border-grey-soft">
+          <details className="group bg-grey-soft/40 p-5 rounded-lg cursor-pointer border border-grey-soft hover:ring-1 hover:ring-royal-blue">
             <summary className="flex justify-between items-center font-semibold">
               <span>Are my QR codes secure?</span>
               <span className="group-open:rotate-180 transition-transform">

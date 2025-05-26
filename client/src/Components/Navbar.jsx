@@ -38,7 +38,7 @@ const Navbar = () => {
         {/* Logo */}
         <Link to="/dashboard" className="flex items-center space-x-2">
           <img src={logo} alt="Enqode Logo" className="h-10 w-10" />
-          <span className="text-xl font-semibold tracking-wider">Enqode</span>
+          <span className="text-2xl font-semibold tracking-wider">Enqode</span>
         </Link>
 
         {/* Nav Links */}
