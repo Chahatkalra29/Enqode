@@ -33,7 +33,7 @@ const Dashboard = () => {
         <p className="text-lg text-bg-light/50">
           Design professional, trackable QR codes in just a few clicks.
         </p>
-        <button className="mt-4 px-6 py-3 mb-10 bg-royal-blue text-white rounded-md shadow hover:bg-royal-blue/80 transition ">
+        <button className="mt-4 px-6 py-3 mb-10 bg-royal-blue text-white rounded-md shadow hover:bg-royal-blue/80 transition " onClick={() => (window.location.href = "/enqodeLink")}>
           Generate My First QR        </button>
       </div>
       <div className="bg-[#1f232a] h-9/12 pb-8">
