@@ -94,7 +94,48 @@ const Landing = () => {
         </div>
       </main>
       
-      <div className="h-screen bg-txt-dark text-3xl text-bg-light" > Features  timeline section</div> 
+      <div className="relative border-l-2 border-gray-300 ml-5">
+  {/* Item 1 (Left) */}
+  <div className="mb-10 ml-[-12px] flex items-center">
+    <div className="w-3 h-3 bg-red-500 rounded-full z-10"></div>
+    <div className="ml-6 w-1/2 bg-white rounded-lg shadow-md p-4">
+      <div className="text-sm font-semibold">12:42 pm</div>
+      <div className="text-red-600 font-bold">Ipsum</div>
+      <p className="text-sm text-gray-600">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+    </div>
+  </div>
+
+  {/* Item 2 (Right) */}
+  <div className="mb-10 ml-[-12px] flex items-center justify-end">
+    <div className="mr-6 w-1/2 bg-white rounded-lg shadow-md p-4">
+      <div className="text-sm font-semibold">11:35 am</div>
+      <div className="text-red-600 font-bold">Sit velit</div>
+      <p className="text-sm text-gray-600">Sit velit, porro ullam vero nihil fuga voluptatem</p>
+    </div>
+    <div className="w-3 h-3 bg-red-500 rounded-full z-10"></div>
+  </div>
+
+  {/* Item 3 (Left) */}
+  <div className="mb-10 ml-[-12px] flex items-center">
+    <div className="w-3 h-3 bg-red-500 rounded-full z-10"></div>
+    <div className="ml-6 w-1/2 bg-white rounded-lg shadow-md p-4">
+      <div className="text-sm font-semibold">10:27 am</div>
+      <div className="text-red-600 font-bold">Fugit</div>
+      <p className="text-sm text-gray-600">Fugit quis eos eligendi corporis doloremque.</p>
+    </div>
+  </div>
+
+  {/* Item 4 (Right) */}
+  <div className="mb-10 ml-[-12px] flex items-center justify-end">
+    <div className="mr-6 w-1/2 bg-white rounded-lg shadow-md p-4">
+      <div className="text-sm font-semibold">09:53 am</div>
+      <div className="text-red-600 font-bold">Lorem</div>
+      <p className="text-sm text-gray-600">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+    </div>
+    <div className="w-3 h-3 bg-red-500 rounded-full z-10"></div>
+  </div>
+</div>
+
       <div className="h-screen bg-txt-dark text-3xl text-bg-light" > Video section</div> 
       <Footer />
     </div>
