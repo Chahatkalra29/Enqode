@@ -7,27 +7,28 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-README.md 
-
 # Environment files
 .env
 .env.* 
-node_modules
+
+# Build output
 dist
 dist-ssr
-*.local
 
-# Editor directories and files
+# System/IDE files
+node_modules
 .vscode/*
 !.vscode/extensions.json
 .idea
 .DS_Store
+*.local
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
-# Optional lock files 
+
+# Optional lock files (keep only one if you're using npm/yarn/pnpm)
 package-lock.json
-yarn.lock
-pnpm-lock.yaml
+# yarn.lock
+# pnpm-lock.yaml
