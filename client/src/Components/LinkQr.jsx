@@ -5,6 +5,7 @@ import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const LinkQr = () => {
+  const backendUrl= import.meta.env.VITE_BACKEND_URL
   const location = useLocation();
   const qrData = location.state?.qrData || null;
 
@@ -50,7 +51,7 @@ const LinkQr = () => {
       let response;
       if (qrData) {
         response = await axios.post(
-          `http://localhost:5000/userapi/editqr/${qrData._id}`,
+          `${backendUrl}${qrData._id}`,
           {
             qrLink: qrLinks,
             qrColor: qrColor,
@@ -64,8 +65,8 @@ const LinkQr = () => {
           }
         );
       } else {
-        response = await axios.post(
-          "http://localhost:5000/userapi/addlinkqr",
+        response = await axios.post(`${backendUrl}userapi/addlinkqr`
+          ,
           {
             qrLink: qrLinks,
             qrColor: qrColor,

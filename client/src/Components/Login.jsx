@@ -7,6 +7,8 @@ import { Helmet } from "react-helmet-async";
 import logo from "../assets/logo-transparent-bg.png";
 
 const Login = () => {
+
+  const backendUrl= import.meta.env.VITE_BACKEND_URL
   const navigate = useNavigate();
   const [error, setError] = useState("");
   const [errorTrigger, setErrorTrigger] = useState(false);
@@ -27,8 +29,7 @@ const Login = () => {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     try {
-      const loginDetails = await axios.post(
-        "http://localhost:5000/userapi/loguser",
+      const loginDetails = await axios.post(`${backendUrl}userapi/loguser`,
         userDetails
       );
       console.log(loginDetails);

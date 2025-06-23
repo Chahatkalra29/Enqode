@@ -5,12 +5,13 @@ import axios from "axios";
 import { ShowToast } from '../Utilities/ShowToast';
 
 const ForgetPass = () => {
+  const backendUrl= import.meta.env.VITE_BACKEND_URL
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
 
   const handleForgetButton = async () => {
     try {
-      const response = await axios.post("http://localhost:5000/userapi/forgetpass",{email})
+      const response = await axios.post(`${backendUrl}userapi/forgetpass`,{email})
       
       console.log(response.data)
       if (response.data.reset_link) {

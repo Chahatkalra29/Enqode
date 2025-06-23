@@ -5,6 +5,7 @@ import { Helmet } from "react-helmet-async";
 import logo from "../assets/logo-transparent-bg.png";
 
 const Register = () => {
+    const backendUrl= import.meta.env.VITE_BACKEND_URL
   const [userDetails, setUserDetails] = useState({
     uname: "",
     email: "",
@@ -23,7 +24,7 @@ const Register = () => {
     e.preventDefault();
     try {
       const res = await axios.post(
-        "http://localhost:5000/userapi/reguser",
+        `${backendUrl}userapi/reguser`,
         userDetails
       );
       console.log(res.data);

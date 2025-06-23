@@ -5,6 +5,7 @@ import { ShowToast } from "../Utilities/ShowToast";
 import { useNavigate } from "react-router-dom";
 
 const AllLinks = () => {
+    const backendUrl= import.meta.env.VITE_BACKEND_URL
   const [qrLinks, setQrLinks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -20,7 +21,7 @@ const AllLinks = () => {
       }
 
       const response = await axios.get(
-        "http://localhost:5000/userapi/getqrlinks",
+        `${backendUrl}userapi/getqrlinks`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -48,7 +49,7 @@ const AllLinks = () => {
     try {
       const utoken = localStorage.getItem("utoken");
       const response = await axios.get(
-        `http://localhost:5000/userapi/deleteqr/${qrid}`,
+        `${backendUrl}userapi/deleteqr/${qrid}`,
         {
           headers: {
             "Content-Type": "application/json",
