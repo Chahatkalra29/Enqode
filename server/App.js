@@ -13,7 +13,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(
   cors({
-    origin: "https://enqode-git-main-chahat-kalras-projects.vercel.app",
+    origin: "https://enqode.vercel.app/",
     credentials: true,
   })
 );
