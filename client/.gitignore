@@ -8,8 +8,7 @@ pnpm-debug.log*
 lerna-debug.log*
 
 README.md 
-vite.config.js 
-package.json
+
 # Environment files
 .env
 .env.* 
