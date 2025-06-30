@@ -32,8 +32,6 @@ mongoose.connection.on("error", (error) => {
   console.log(`It is a ${error}, please try again.`);
 });
 
-module.exports = {
-  app,
-  handler: serverless(app),
-  mongoose,
-};
+
+module.exports = app;
+module.exports = serverless(app);
