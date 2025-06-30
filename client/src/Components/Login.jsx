@@ -7,11 +7,11 @@ import { Helmet } from "react-helmet-async";
 import logo from "../assets/logo-transparent-bg.png";
 
 const Login = () => {
-
-  const backendUrl= import.meta.env.VITE_BACKEND_URL
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const navigate = useNavigate();
   const [error, setError] = useState("");
   const [errorTrigger, setErrorTrigger] = useState(false);
+  const [isLoading, setIsLoading] = useState(false); // Add loading state
 
   const [userDetails, setUserDetails] = useState({
     uemail: "",
@@ -28,20 +28,38 @@ const Login = () => {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true); // Start loading
+
+    // Add immediate visual feedback
+    toast.info("Logging in...", {
+      position: "top-center",
+      autoClose: 2000,
+      theme: "dark",
+      transition: Bounce,
+    });
+
     try {
-      const loginDetails = await axios.post(`${backendUrl}userapi/loguser`,
+      const loginDetails = await axios.post(
+        `${backendUrl}userapi/loguser`,
         userDetails
       );
       console.log(loginDetails);
+      
       if (loginDetails.data.loginsts === "0") {
         localStorage.setItem("utoken", loginDetails.data.token);
-        navigate("/dashboard");
+        toast.success("Login successful! Redirecting...", {
+          position: "top-center",
+          theme: "dark",
+          transition: Bounce,
+          autoClose: 1500,
+        });
+        // Small delay to show success message
+        setTimeout(() => navigate("/dashboard"), 1500);
       } else {
         console.log("Error from server:", loginDetails.data.msg);
         setError(loginDetails.data.msg);
         setErrorTrigger((prev) => !prev);
       }
-      // const token = localStorage.getItem("utoken")
     } catch (error) {
       console.log(error);
       toast.error("Server error. Please try again later.", {
@@ -49,8 +67,11 @@ const Login = () => {
         theme: "dark",
         transition: Bounce,
       });
+    } finally {
+      setIsLoading(false); // Stop loading
     }
   };
+
   useEffect(() => {
     if (error) {
       console.log("Error detected: ", error);
@@ -65,13 +86,12 @@ const Login = () => {
         theme: "dark",
         transition: Bounce,
       });
-
       setError("");
     }
   }, [errorTrigger]);
 
   return (
-    <div className="flex  flex-col justify-center items-center  min-h-screen bg-txt-dark relative overflow-hidde font-sf-pro">
+    <div className="flex flex-col justify-center items-center min-h-screen bg-txt-dark relative overflow-hidden font-sf-pro">
       <div className="absolute bottom-0 left-0 w-72 h-72 bg-[#D6D4FF]/10 rounded-full filter blur-[120px] animate-pulse"></div>
       <div className="absolute top-0 right-0 w-72 h-72 bg-[#6C63FF]/10 rounded-full filter blur-[120px] animate-pulse"></div>
 
@@ -93,12 +113,14 @@ const Login = () => {
       />
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-lav/10 rounded-full filter blur-3xl "></div>
       <div className="absolute top-0 right-0 w-96 h-96 bg-lav/10 rounded-full filter blur-3xl"></div>
-      <div className="h-2/3 p-8 w-1/4  bg-txt-dark rounded-2xl space-y-3 shadow-xl border border-bg-light/10">
+      
+      <div className="h-2/3 p-8 w-1/4 bg-txt-dark rounded-2xl space-y-3 shadow-xl border border-bg-light/10">
         <div className="flex flex-col items-center mb-6">
           <img className="h-17 w-17" src={logo} alt="Enqode Logo" />
-          <h1 className="text-2xl font-bold  text-bg-light tracking-wider">Welcome Back</h1>
+          <h1 className="text-2xl font-bold text-bg-light tracking-wider">Welcome Back</h1>
           <p className="text-bg-light mt-1">Log in to your Enqode account</p>
         </div>
+        
         <div>
           <label htmlFor="uemail" className="block text-sm text-gray-300 mb-1">
             Email
@@ -108,7 +130,10 @@ const Login = () => {
             name="uemail"
             placeholder="Enter your registered email"
             required
-            className="w-full bg-grey-soft text-white border border-grey-soft rounded-lg px-4 py-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-royal-blue transition"
+            disabled={isLoading} // Disable during loading
+            className={`w-full bg-grey-soft text-white border border-grey-soft rounded-lg px-4 py-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-royal-blue transition ${
+              isLoading ? 'opacity-50 cursor-not-allowed' : ''
+            }`}
             onChange={handleInputChange}
           />
         </div>
@@ -122,46 +147,77 @@ const Login = () => {
             name="upass"
             placeholder="Password"
             required
-            className="w-full bg-grey-soft text-white border border-grey-soft rounded-lg px-4 py-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-royal-blue transition"
+            disabled={isLoading} // Disable during loading
+            className={`w-full bg-grey-soft text-white border border-grey-soft rounded-lg px-4 py-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-royal-blue transition ${
+              isLoading ? 'opacity-50 cursor-not-allowed' : ''
+            }`}
             onChange={handleInputChange}
           />
         </div>
+        
         <div className="flex justify-end">
           <Link
             to={"/forgetPass"}
             className="text-royal-blue text-xs hover:text-royal-blue/80"
           >
-            Forgot Password?{" "}
+            Forgot Password?
           </Link>
         </div>
 
         <button
-          className=" w-full py-3 mt-2 bg-royal-blue hover:from-lav hover:to-royal-blue rounded-xl text-bg-light font-bold tracking-wide shadow-lg hover:shadow-lav/40 transition-all duration-300"
+          className={`w-full py-3 mt-2 rounded-xl text-bg-light font-bold tracking-wide shadow-lg transition-all duration-300 flex items-center justify-center ${
+            isLoading
+              ? 'bg-royal-blue/50 cursor-not-allowed'
+              : 'bg-royal-blue hover:from-lav hover:to-royal-blue hover:shadow-lav/40'
+          }`}
           onClick={handleFormSubmit}
+          disabled={isLoading}
         >
-          Login
+          {isLoading ? (
+            <>
+              <svg
+                className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                ></circle>
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                ></path>
+              </svg>
+              Logging in...
+            </>
+          ) : (
+            'Login'
+          )}
         </button>
-        {/* <button
-          className=" w-full py-3 mt-2 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-blue-500 hover:to-purple-600 rounded-xl text-white font-bold tracking-wide shadow-lg hover:shadow-cyan-500/50 transition-all duration-300"
-          onClick={msg}
-        >
-          Test Toast
-        </button> */}
+
         <div className="text-center mt-6">
           <p className="text-sm text-gray-400">Don't have an account yet?</p>
           <Link
             to={"/register"}
-            className="text-royal-blue hover:text-royal-blue/50 "
+            className="text-royal-blue hover:text-royal-blue/50"
           >
-            Register here{" "}
+            Register here
           </Link>
         </div>
 
         <br />
       </div>
+      
       <div className="text-center mt-8 text-gray-400 text-xs">
-          <p>© {new Date().getFullYear()} Enqode. All rights reserved.</p>
-        </div>
+        <p>© {new Date().getFullYear()} Enqode. All rights reserved.</p>
+      </div>
     </div>
   );
 };
