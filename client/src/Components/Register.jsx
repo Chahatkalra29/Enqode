@@ -26,6 +26,11 @@ const Register = () => {
     try {
       const res = await axios.post(`${backendUrl}userapi/reguser`, userDetails);
       console.log(res.data);
+      toast.success("Registered successfully, Login to continue", {
+        position: "top-center",
+        theme: "dark",
+        transition: Bounce,
+      });
     } catch (error) {
       console.error(error);
       toast.error("Server error. Please try again later.", {
