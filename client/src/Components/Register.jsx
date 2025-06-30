@@ -36,7 +36,7 @@ const Register = () => {
     });
 
     try {
-      const res = await axios.post(`${backendUrl}userapi/reguser`, userDetails);
+      const res = await axios.post(`${backendUrl}/userapi/reguser`, userDetails);
       console.log(res.data);
       
       toast.success("Registered successfully, Login to continue", {

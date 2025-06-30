@@ -4,6 +4,7 @@ import axios from 'axios';
 import logo from '../assets/logo-transparent-bg.png';
 
 const Navbar = () => {
+  const backendUrl= import.meta.env.VITE_BACKEND_URL
   const navigate = useNavigate();
   const location = useLocation();
  
@@ -11,7 +12,7 @@ const Navbar = () => {
   const handleLogOut = async () => {
     const token = localStorage.getItem('utoken');
     try {
-      await axios.get('http://localhost:5000/userapi/logoutuser', {
+      await axios.get(`${backendUrl}/userapi/logoutuser`, {
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,

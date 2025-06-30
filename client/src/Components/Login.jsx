@@ -40,7 +40,7 @@ const Login = () => {
 
     try {
       const loginDetails = await axios.post(
-        `${backendUrl}userapi/loguser`,
+        `${backendUrl}/userapi/loguser`,
         userDetails
       );
       console.log(loginDetails);

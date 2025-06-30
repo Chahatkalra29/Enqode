@@ -21,7 +21,7 @@ const AllLinks = () => {
       }
 
       const response = await axios.get(
-        `${backendUrl}userapi/getqrlinks`,
+        `${backendUrl}/userapi/getqrlinks`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -49,7 +49,7 @@ const AllLinks = () => {
     try {
       const utoken = localStorage.getItem("utoken");
       const response = await axios.get(
-        `${backendUrl}userapi/deleteqr/${qrid}`,
+        `${backendUrl}/userapi/deleteqr/${qrid}`,
         {
           headers: {
             "Content-Type": "application/json",

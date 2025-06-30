@@ -51,7 +51,7 @@ const LinkQr = () => {
       let response;
       if (qrData) {
         response = await axios.post(
-          `${backendUrl}${qrData._id}`,
+          `${backendUrl}/${qrData._id}`,
           {
             qrLink: qrLinks,
             qrColor: qrColor,
@@ -65,7 +65,7 @@ const LinkQr = () => {
           }
         );
       } else {
-        response = await axios.post(`${backendUrl}userapi/addlinkqr`
+        response = await axios.post(`${backendUrl}/userapi/addlinkqr`
           ,
           {
             qrLink: qrLinks,
