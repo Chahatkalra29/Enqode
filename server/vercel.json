@@ -3,18 +3,17 @@
   "builds": [
     {
       "src": "api/App.js",
-      "use": "@vercel/node"
+      "use": "@now/node"
     }
   ],
   "routes": [
     {
+      "src": "/userapi/(.*)",
+      "dest": "/api/App.js"
+    },
+    {
       "src": "/(.*)",
       "dest": "/api/App.js"
     }
-  ],
-  "functions": {
-    "api/App.js": {
-      "maxDuration": 30
-    }
-  }
+  ]
 }
