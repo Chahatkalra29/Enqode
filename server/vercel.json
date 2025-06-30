@@ -1,9 +1,20 @@
+{
+  "version": 2,
+  "builds": [
     {
-        "version":2,
-        "routes":[
-            {
-                "src":"/userapi/(.*)",
-                "dest":"/api/App.js"
-            }
-        ]
+      "src": "api/App.js",
+      "use": "@vercel/node"
     }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/api/App.js"
+    }
+  ],
+  "functions": {
+    "api/App.js": {
+      "maxDuration": 30
+    }
+  }
+}
